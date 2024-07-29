@@ -16,15 +16,18 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources location="/js/" mapping="/js/**"></resources>
 	<resources location="/css/" mapping="/css/*.css"></resources>
-	<resources location="/images/" mapping="/images/**"></resources>
+	<resources location="/img/" mapping="/img/**"></resources>
+	<resources location="/upload/" mapping="/upload/**"></resources>
+	<resources location="/product/" mapping="/product/**"></resources>
+	<resources location="/admin/" mapping="/admin/**"></resources>
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="prefix" value="/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.letteshopping.www" />
+	<context:component-scan base-package="com.lotteshopping.www,shopping_admin,shopping" />
 	
 	
 	

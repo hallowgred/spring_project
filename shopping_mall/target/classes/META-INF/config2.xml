@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<typeAliases>
-		<typeAlias alias="userdao" type="com.lotteshopping.www.user_dao"/>
-	</typeAliases>
+<typeAliases>
+<typeAlias alias="shoppingdao" type="shopping_admin.shopping_admin_dao"/>
+</typeAliases>
 </configuration>

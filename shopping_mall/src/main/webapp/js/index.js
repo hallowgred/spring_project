@@ -1,85 +1,47 @@
+
+//로그인
+function login(){
+	login_frm.method="post";
+	login_frm.action="./login.do";
+	login_frm.submit();
+	
+}
+
+//회원가입 파트
+function sing_up(){
+	location.href="./add_master.jsp";
+}
+
+function go_sign_up(){
+	add_admin.shp.value=add_admin.shp1.value+add_admin.shp2.value+add_admin.shp3.value;
+	add_admin.spart.value=add_admin.spart1.value+"!"+add_admin.spart2.value;
+	console.log(add_admin.spart.value);
+	
+	add_admin.method="post";
+	add_admin.action="./signup.do";
+	add_admin.submit();
+	
+}
+
+
+
 $(()=>{
-		var $arr=[["10%","20%","30%"],["30","40","50"]];
-		
-		var $basket = [
-		{"seq":"1","product":"냉장고","price":"195000"},
-		{"seq":"2","product":"세탁기","price":"287000"},
-		{"seq":"3","product":"에어프라이어","price":"97000"}
-		];
-		
-		
-		
-	//Front 배열값 응용편
-	$("#btn3").click(function(){
-		
-		
+	document.querySelector(".btn_button").addEventListener("click",function(){
+		const id= document.getElementById("sid").value;
 		$.ajax({
-			url : "./ajaxok3.do",
-			type : "get",
-			cache: false,
-			dataType : "text",
-			//contentType : "application/x-www-form-urlencoded",
-			contentType : "application/json",
-			data : JSON.stringify($arr),
-			success :function($result){
-				console.log($result);
-			},error : function(){
+			url:"./idcheck.do?sid="+id,
+			type: "get",
+			cache:false,
+			dataType:"text",
+			contentType : "application/x-www-form-urlencoded",
+			//data : name,
+			success : function($result){
+				if($result=="ok"){
+					document.querySelector("#asd").innerHTML="<li>사용가능한 아이디 입니다.</li>";
+				}
+			},error:function(){
 				console.log("error");
 			}
-		});
+		})
 	});
-	
-	
-	
-	
-	$("#btn").click(function(){
-		var $data = new Array();
-		$data[0] = "20";
-		$data[1] = "30";
-		$data[2] = "40";
-		//join() : 배열을 문자열로 변경함 ()사이에 무슨 단어를 기준으로 나눌지 설정
-		$.ajax({
-			
-			url : "./ajaxok.do",
-			cache: false,
-			dataType : "json",
-			contentType : "application/json",
-			type : "get",
-			data :{
-				"alldata": $data.join(",")
-			},
-			success :function($result){
-				console.log($result);
-			},error : function(){
-				console.log("error");
-			}
-			
-		});
-	});
-	//JSON.stringify : Object 형태로 전달
-	$("#btn2").click(function(){
-	var $data = new Array();
-		$data[0] = "홍길동";
-		$data[1] = "강감찬";
-		$data[2] = "이순신";
-			
-		$.ajax({
-		url: "./ajaxok2.do",
-		type: "post",
-		cache : false,
-		dataType : "json",
-		contentType : "application/json",
-		data : JSON.stringify({
-			"all_data":$data
-		}),
-		success : function($result){
-			console.log($result);
-		},error:function(){
-			console.log("error");
-		}
-		});
-			
-	});
-	
-	
-});
+})

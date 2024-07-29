@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shopping">
+	
+	<select id="id_check" resultType="shoppingdao">
+	select sid from admin where sid = #{sid}
+	</select>	
+	<select id="login" resultType="shoppingdao">
+	select * from admin where sid=#{sid} and spass=#{spass}
+	</select>
+	
+	
+	<insert id="signup">
+	insert into admin (sidx,sid,spass,sname,semail,shp,spart,sdate) values ('0',#{sid},#{spass},#{sname},#{semail},#{shp},#{spart},now())
+	</insert>
+</mapper>
