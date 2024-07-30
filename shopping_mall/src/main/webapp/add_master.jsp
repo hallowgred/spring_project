@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,11 +25,12 @@
         <input type="hidden" name="shp" id="shp">
         <input type="hidden" name="spart" id="spart">
         <div class="admin_login_add">
-            <ul id="asd">
+            <ul>
                 <li class="font_color1">아이디 및 패스워드 정보</li>
-                <li>
+                <li >
                 <input type="text" class="add_input1" name="sid" id="sid" placeholder="생성할 관리자 아이디를 입력하세요">
-                <button type="button"  class="btn_button">중복체크</button>
+                <button type="button"  class="btn_button" >중복체크</button>
+                <label id="asd" class="font_color1" style="display: inline;"></label> 
                 </li>
                 <!-- 
                 <li style="display:none;" id="idck1">
@@ -39,15 +40,15 @@
                 <span class="font_color1">사용할수 없는 아이디 입니다.</span>
                 </li> -->
                 <li>
-                    <input type="text" class="add_input1" placeholder="접속할 패스워드를 입력하세요" name="spass">
-                    <input type="text" class="add_input1" placeholder="동일한 패스워드를 입력하세요">
+                    <input type="text" class="add_input1" placeholder="접속할 패스워드를 입력하세요" name="spass" id="spass">
+                    <input type="text" class="add_input1" placeholder="동일한 패스워드를 입력하세요" id="spass_ck">
                 </li>
                 <li class="font_color1">관리자 기본정보 입력</li>
                 <li>
-                    <input type="text" class="add_input1" placeholder="담당자 이름을 입력하세요" name="sname">
+                    <input type="text" class="add_input1" placeholder="담당자 이름을 입력하세요" name="sname" id="sname">
                 </li>
                 <li>
-                <input type="text" class="add_input1 emails" placeholder="담당자 이메일을 입력하세요" name="semail">
+                <input type="text" class="add_input1 emails" placeholder="담당자 이메일을 입력하세요" name="semail" id="semail">
                 </li>
                 <li class="font_color1">
                 <input type="text" class="add_input1 hp1" placeholder="HP" value="010" maxlength="3" id="shp1">
@@ -80,7 +81,7 @@
             </ul>
             <span class="admin_addbtn">
                 <button type="button" class="btn_button btncolor1" title="관리자 등록" onclick="go_sign_up()">관리자 등록</button>
-                <button type="button" class="btn_button btncolor2" title="관리자 취소">등록 취소</button>
+                <button type="button" class="btn_button btncolor2" title="관리자 취소" onclick="cans()">등록 취소</button>
             </span>
         </div>
         </form>
@@ -91,5 +92,5 @@
         </div>
     </footer>
 </body>
-<script src="../js/index.js?v=3"></script>
+<script src="../js/add_master.js?v=9"></script>
 </html>

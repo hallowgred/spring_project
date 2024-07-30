@@ -1,9 +1,30 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
     HttpSession hs = request.getSession();
-    hs.getAttribute("");
-    %>
+     ArrayList<Object> ar =(ArrayList<Object>)hs.getAttribute("list");
+     int count =0;
+     if (ar == null || ar.isEmpty()) {
+         // 리스트가 null이거나 비어있을 때의 처리
+         %>
+         <script>
+         	<%count++;%>
+             alert("잘못된 접근방식입니다!");
+             location.href = "./index.jsp";
+         </script>
+         <%
+     } else if (ar.get(0) == null || ar.get(0).equals(null)) {
+         // 리스트가 비어있지 않지만 첫 번째 요소가 null일 때의 처리
+         %>
+         <script>
+         <%count++;%>
+             alert("잘못된 접근방식입니다!");
+             location.href = "./index.jsp";
+         </script>
+         <%
+     }
+ %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,21 +43,13 @@
 <body>
 <header class="headercss">
     <div class="header_div">
-        <p><img src="./img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
-        <p>홍길동 관리자 <a href="#">[개인정보 수정]</a> <a href="#">[로그아웃]</a></p>
+        <p class="top_to_home"><img src="./img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
+        <%
+        if(count==0){%>
+        	<p><%=ar.get(2) %>관리자 <a href="#">[개인정보 수정]</a> <a id="logout">[로그아웃]</a></p>
+       <% } %> 
     </div>
 </header>
-<nav class="navcss">
-    <div class="nav_div">
-        <ol>
-            <li title="쇼핑몰 상품관리">쇼핑몰 관리자 리스트</li>
-            <li title="쇼핑몰 회원관리">쇼핑몰 회원관리</li>
-            <li title="쇼핑몰 상품관리">쇼핑몰 상품관리</li>
-            <li title="쇼핑몰 기본설정">쇼핑몰 기본설정</li>
-        </ol>
-    </div>
-
-</nav>
 </body>
-<script src="./js/top.js"></script>
+<script src="./js/top.js?v=1"></script>
 </html>

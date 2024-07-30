@@ -17,20 +17,20 @@
 <script src="./js/jquery.js"></script>
 <body class="bodycss">
     <header class="admin_title">
-        <p><img src="./img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
+        <p onclick="home()"><img src="./img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
     </header>
     <section class="admin_bgcolor">
-    <form id="login_frm">
+    <form id="login_frm" onsubmit="return login()">
         <div class="admin_login">
             <span>
                 <div class="left_div">
                 <ul>
-                <li><input type="text" class="input_text1" placeholder="관리자 아이디를 입력하세요" name="sid"></li>
-                <li><input type="password" class="input_text1" placeholder="관리자 패스워드를 입력하세요" name="spass"></li>
+                <li><input type="text" class="input_text1" placeholder="관리자 아이디를 입력하세요" name="sid" id="sid"></li>
+                <li><input type="password" class="input_text1" placeholder="관리자 패스워드를 입력하세요" name="spass" id="spass"></li>
                 </ul>
                 </div>
                 <div class="right_div">
-                    <button type="submit" class="btn_submit" title="MASTER LOGIN" onclick="login()">MASTER LOGIN</button>
+                    <button type="submit" class="btn_submit" title="MASTER LOGIN" >MASTER LOGIN</button>
                 </div>
                 <em class="alert_msg">※ 본 사이트는 관리자 외에는 접근을 금합니다. 페이지 접근에 대한 접속 정보는 모두 기록 됩니다.</em>
             </span>
@@ -43,11 +43,7 @@
         </div>
         </form>
     </section>
-    <footer class="admin_copy_login">
-        <div>
-            Copyright ⓒ 2024 shopbag All rights reserved.
-        </div>
-    </footer>
+    <%@ include file="./footer.jsp" %>
 </body>
-<script src="./js/index.js?v=1"></script>
+<script src="./js/index.js?v=5"></script>
 </html>
