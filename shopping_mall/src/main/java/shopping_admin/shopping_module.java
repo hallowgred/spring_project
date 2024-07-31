@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -23,10 +24,21 @@ public class shopping_module {
 	
 	PrintWriter pw =null;
 	//최고 관리자 리스트 배열 생성
-	public ArrayList<ArrayList<Object>> admini(){
-		shopping_admin_dao dao =(shopping_admin_dao) tm2.selectList("shopping.master_sel");
-		ArrayList<ArrayList<Object>> li=dao.dou_list();
-		return li;
+	public List<shopping_admin_dao> admini(){
+	List<shopping_admin_dao>dao =tm2.selectList("shopping.master_sel");	
+		return dao;
+	}
+	
+	//관리자 승인 파트
+	public int approval_module(int master,int sidx) {
+		Map<String, Integer> map =new HashMap<String, Integer>();
+		if(master==1) {
+		map.put("master", 0);
+		}else {
+			map.put("master", 1);	
+		}
+		map.put("sidx", sidx);
+		return tm2.update("shopping.approval",map);
 	}
 	
 	
@@ -38,10 +50,7 @@ public class shopping_module {
 		HttpSession hs= req.getSession();
 		hs.invalidate();
 		result="ok";
-		}catch(Exception e) {
-			
-		}finally {
-			this.pw.close();
+		}catch(Exception e) {	
 		}
 		return result;	
 	}
@@ -52,7 +61,6 @@ public class shopping_module {
 		ArrayList<Object> list=null;
 		res.setContentType("text/html;charset=utf-8");
 		String pass = pass_security(dao);
-		
 		this.pw=res.getWriter();
 		try {
 		Map<String, String> log = new HashMap<String, String>();
@@ -61,9 +69,7 @@ public class shopping_module {
 		dao = tm2.selectOne("shopping.login",log);
 		list = dao.lists();
 		}catch(Exception e) {
-		this.pw.print("<script>alert('아이디와 비밀번호를 확인해주세요!');location.href='./admin';</script>");	
-		}finally {
-			this.pw.close();
+			System.out.println(e);	
 		}
 		return list;
 	}
@@ -73,7 +79,8 @@ public class shopping_module {
 		StringBuilder sb=null;
 		try {
 			MessageDigest sha3 = MessageDigest.getInstance("SHA-256");
-			String data=dao.getSpass();
+			//String data=dao.getSpass();
+			String data="shop_master123";
 			byte[] pass= sha3.digest(data.getBytes());
 			sb = new StringBuilder();
 			for(byte b:pass) {

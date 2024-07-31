@@ -19,7 +19,7 @@
 	<context:annotation-config/>	<!-- template을 사용하지 못함 -->
 	<bean id="dbinfo2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/shopping_mall"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/shopping"></property>
 		<property name="username" value="shopping"></property>
 		<property name="password" value="sp1234"></property>
 	</bean>

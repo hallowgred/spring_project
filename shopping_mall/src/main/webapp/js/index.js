@@ -10,15 +10,16 @@ function login(){
 		return false;
 	}else{
 	login_frm.method="post";
-	login_frm.action="./login.do";
+	login_frm.action="./shopping_admin.do";
 	return true;
 	}
 }
 
 //회원가입 파트
-function sing_up(){
-	location.href="./add_master.jsp";
-}
+function sing_up() {
+        location.href = "./add_master"; 
+    }
+
 
 
 
