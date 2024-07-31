@@ -749,3 +749,43 @@ http://mekeyace.dothome.co.kr/shop_source.zip
 
 
   alter table admin modify master int(1) null default '0';
+
+
+create table siteinfo(
+    hidx int(7) unsigned not null auto_increment,
+    hname char (100) not null,
+    hemail varchar(200) not null,
+    hpoint enum('Y','N') not null,
+    hsingpoint int(7) unsigned not null,
+    hsinglev int(1) unsigned not null,
+    corname char(100) not null,
+    business_reg char(10) not null,
+    repname char(50) not null,
+    rephp char(11) not null,
+    business_mail_order char(11) null,
+    add_commu char(7) null,
+    workplace_mail char(5) not null,
+    workplace char(150) not null,
+    info_mng char(50) not null,
+    info_mng_email varchar(200) not null,
+    non_bank char(3) null,
+    bank_num char(16) null,
+    Credit_card enum('Y','N') not null,
+    mobile_pay enum('Y','N') not null,
+    book_gift enum('Y','N') not null,
+    pay_low int(7) unsigned not null,
+    pay_hing int(7) unsigned not null,
+    cash_rec enum('Y','N') not null,
+    deli_name char(100) not null,
+    deli_pay int(5) unsigned not null,
+    hope_day enum('Y','N') not null,
+    primary key(hidx)
+);
+
+
+
+
+
+
+
+
