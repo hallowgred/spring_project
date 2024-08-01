@@ -2,6 +2,8 @@ package shopping_admin;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
 import lombok.Getter;
 import lombok.Setter;
 

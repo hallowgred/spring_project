@@ -2,11 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="shopping">
 	
-	<update id="approval">
-	update admin set master=#{master} where sidx=#{sidx}
-	</update>
+	<delete id="delete_write">
+	delete from siteinfo where hidx=#{hidx}
+	</delete>	
 	
 	
+	<select id="sp_set_sel" resultType="settingsdao">
+	select * from siteinfo where hidx=#{hidx}
+	</select>
 	<select id="id_check" resultType="shoppingdao" parameterType="map">
 	select sid from admin where sid = #{sid}
 	</select>	
@@ -22,13 +25,16 @@
 	insert into admin (sidx,sid,spass,sname,semail,shp,spart,sdate) values ('0',#{sid},#{spass},#{sname},#{semail},#{shp},#{spart},now())
 	</insert>
 	
-	<insert id="intsert_settings_sp">
+	<insert id="insert_settings_sp">
 	insert into siteinfo (hidx,hname,hemail,hpoint,hsignpoint,hsignlev,corname,business_reg,repname,rephp,business_mail_order,add_commu,workplace_mail,
-	workplace,info_mng,info_mng_email,non_bank,bank_num,Credit_card,mobile_pay,book_gift,pay_low,pay_hign,cash_rec,deli_name,deli_pay,hope_day) values ('0',#{hname},#{hemail},#{hpoint},#{hsignpoint},#{hsignlev},#{corname},#{business_reg},#{repname},#{rephp},#{business_mail_order},#{add_commu},#{workplace_mail},#{workplace},#{info_mng},#{info_mng_email},#{non_bank},#{bank_num},#{Credit_card},#{mobile_pay},#{book_gift},#{pay_low},#{pay_hign},#{cash_rec},#{deli_name},#{deli_pay},now())
+	workplace,info_mng,info_mng_email,non_bank,bank_num,Credit_card,mobile_pay,book_gift,pay_low,pay_hign,cash_rec,deli_name,deli_pay,hope_day) values ('0',#{hname},#{hemail},#{hpoint},#{hsignpoint},#{hsignlev},#{corname},#{business_reg},#{repname},#{rephp},#{business_mail_order},#{add_commu},#{workplace_mail},#{workplace},#{info_mng},#{info_mng_email},#{non_bank},#{bank_num},#{Credit_card},#{mobile_pay},#{book_gift},#{pay_low},#{pay_hign},#{cash_rec},#{deli_name},#{deli_pay},#{hope_day})
 	</insert>
 	
+	<update id="approval">
+	update admin set master=#{master} where sidx=#{sidx}
+	</update>
 	
 	<update id="update_settings_sp">
-	update siteinfo set hname=#{hname},hemail=#{hemail},hpoint=#{hpoint},hsignpoint=#{hsignpoint},hsignlev=#{hsignlev},corname=#{corname},business_reg=#{business_reg},repname=#{repname},rephp=#{rephp},=#{business_mail_order},add_commu=#{add_commu},workplace_mail=#{workplace_mail},workplace=#{workplace},info_mng=#{info_mng},info_mng_email=#{info_mng_email},non_bank=#{non_bank},bank_num=#{bank_num},Credit_card=#{Credit_card},mobile_pay=#{mobile_pay},book_gift=#{book_gift},pay_low=#{pay_low},pay_hign=#{pay_hign},cash_rec=#{cash_rec},deli_name=#{deli_name},deli_pay=#{deli_pay},hope_day=#{hope_day} where hidx='1' 
+	update siteinfo set hname=#{hname},hemail=#{hemail},hpoint=#{hpoint},hsignpoint=#{hsignpoint},hsignlev=#{hsignlev},corname=#{corname},business_reg=#{business_reg},repname=#{repname},rephp=#{rephp},=#{business_mail_order},add_commu=#{add_commu},workplace_mail=#{workplace_mail},workplace=#{workplace},info_mng=#{info_mng},info_mng_email=#{info_mng_email},non_bank=#{non_bank},bank_num=#{bank_num},Credit_card=#{Credit_card},mobile_pay=#{mobile_pay},book_gift=#{book_gift},pay_low=#{pay_low},pay_hign=#{pay_hign},cash_rec=#{cash_rec},deli_name=#{deli_name},deli_pay=#{deli_pay},hope_day=#{hope_day} where hidx=#{hidx} 
 	</update>
 </mapper>

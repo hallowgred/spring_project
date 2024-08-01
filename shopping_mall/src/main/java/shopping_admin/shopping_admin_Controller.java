@@ -4,10 +4,12 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,7 @@ public class shopping_admin_Controller extends shopping_module{
 
 	PrintWriter pw = null;
 	
-	
+
 	
 	//첫페이지 로그인 화면
 	@GetMapping("/admin")
@@ -37,8 +39,41 @@ public class shopping_admin_Controller extends shopping_module{
 	
 	@RequestMapping("/siteinfo")
 	public String shopping_settings(shopping_settings_dao dao,Model m) {
+		if(dao!=null) {
+			shopping_settings_dao dao2= this.sp_set_sel(dao);
+		if(dao2!=null) {
 		m.addAttribute("settings_list",dao.list());
+		}
+		}
 		return "siteinfo";
+	}
+	
+	//쇼핑몰 기본설정 저장취소 파트
+	@GetMapping("/delete_write_info")
+	public String delete_write_info(String hidx,HttpServletResponse res) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		String call="";
+		this.pw=res.getWriter();
+		try {
+		if(hidx==""||hidx==null||hidx.equals("")||hidx.equals(null)) {
+			call="<script>alert('데이터 오류로 인해 저장 취소에 실패하였습니다. 잠시후에 다시 시도해주세요.');history.back();</script>";
+		}else {
+			int result= this.delete_write_info1(hidx);
+			if(result==1) {
+					call="<script>alert('정상적으로 저장 취소 되었습니다.');location.href='./siteinfo';</script>";
+			}else {
+				call="<script>alert('데이터 오류로 인해 저장 취소에 실패하였습니다. 잠시후에 다시 시도해주세요.');history.back();</script>";
+			}
+		}
+		}catch(Exception e) {
+			this.pw.print("<script>alert('데이터 오류로 인해 저장 취소에 실패하였습니다. 잠시후에 다시 시도해주세요.');history.back();</script>");
+		}finally {
+			this.pw.print(call);
+			if(this.pw!=null) {
+				this.pw.close();
+			}
+		}
+		return null;
 	}
 	
 	
@@ -46,8 +81,10 @@ public class shopping_admin_Controller extends shopping_module{
 	@PostMapping("/siteinfo_write")
 	public String siteinfo_write(@ModelAttribute shopping_settings_dao dao,HttpServletResponse res) throws Exception{
 		this.pw=res.getWriter();
+		res.setContentType("text/html;charset=utf-8");
 		try {
 		if(dao!=null) {
+			System.out.println(dao);
 		int result = this.sp_set(dao);
 		if(result==1) {
 			this.pw.print("<script>alert('정상적으로 저장 되었습니다.');location.href='siteinfo';</script>");

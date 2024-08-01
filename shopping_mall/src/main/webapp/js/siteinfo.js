@@ -49,3 +49,12 @@ function write_page_info(){
 	settings_frm.submit();
 	}
 }
+
+
+function delete_write_info(){
+if(confirm("정말로 저장을 취소하시겠습니까?")){
+if(confirm("저장 취소 후 데이터를 복구 하실수 없습니다. 저장 취소 하시겠습니까?")){
+location.href="./delete_write_info";
+}
+}
+}
