@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -22,18 +23,45 @@ public class shopping_admin_Controller extends shopping_module{
 	
 	
 	
-	
+	//첫페이지 로그인 화면
 	@GetMapping("/admin")
 	public String home() {
 		return "index";
 	}
 	
+	//관리자 페이지 로드
 	@RequestMapping("/add_master")
     public String addMaster() {
         return "add_master";
     }
 	
+	@RequestMapping("/siteinfo")
+	public String shopping_settings(shopping_settings_dao dao,Model m) {
+		m.addAttribute("settings_list",dao.list());
+		return "siteinfo";
+	}
 	
+	
+	//쇼핑몰 기본설정
+	@PostMapping("/siteinfo_write")
+	public String siteinfo_write(@ModelAttribute shopping_settings_dao dao,HttpServletResponse res) throws Exception{
+		this.pw=res.getWriter();
+		try {
+		if(dao!=null) {
+		int result = this.sp_set(dao);
+		if(result==1) {
+			this.pw.print("<script>alert('정상적으로 저장 되었습니다.');location.href='siteinfo';</script>");
+			}
+		}
+		}catch(Exception e) {
+			this.pw.print("<script>alert('데이터 오류로 인하여 저장하지 못하였습니다. 잠시후 다시 시도해주세요!');history.back();</script>");
+		}finally {
+			if(this.pw!=null) {
+				this.pw.close();
+			}
+		}
+		return null;
+	}
 	//관리자 승인파트
 	@PostMapping("/approval")
 	public String approval(int master,int sidx,HttpServletResponse res) throws Exception{
@@ -68,7 +96,7 @@ public class shopping_admin_Controller extends shopping_module{
 		this.pw=res.getWriter();
 		res.setContentType("text/html;charset=utf-8");
 		if(!arr.get(3).equals((Object)2)) {
-			this.pw.print("<script>alert('잘못된 접근입니다.');location.href='./index.jsp';</script>");
+			this.pw.print("<script>alert('잘못된 접근입니다.');location.href='./admin';</script>");
 			this.pw.close();
 		}else {
 			List<shopping_admin_dao> ar =this.admini();

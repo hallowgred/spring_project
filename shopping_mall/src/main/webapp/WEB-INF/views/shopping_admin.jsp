@@ -38,6 +38,9 @@
         <li>신규 등록된 관리자가 없습니다.</li>
     </ol>
     </cr:if>
+        <form id="approval_frm">
+        <input type="hidden" value="" name="master" id="master">
+        <input type="hidden" value="" name="sidx" id="sidx">
     <cr:forEach var="li" items="${lists }" varStatus="stat">
     <ol class="new_admin_lists2">
         <li>${stat.index+1 }</li>
@@ -49,19 +52,16 @@
         <li>${li.spart.split("!")[1] }</li>
         <li>${li.sdate.substring(0,10)}</li>
         <li>
-        <form id="approval_frm">
-        <input type="hidden" value="${li.sidx}" name="sidx">
-        <input type="hidden" value="${li.master}" name="master" id="approval_master">
         <cr:if test="${li.master==1 }">
-            <input type="button" value="승인" class="new_addbtn1" title="승인" onclick="approval()" >
+            <input type="button" value="승인" class="new_addbtn1" title="승인" onclick="approval('${li.sidx}')" >
             </cr:if>
             <cr:if test="${li.master==0 }">
-            <input type="button" value="미승인" class="new_addbtn2" title="미승인" onclick="approval()">
+            <input type="button" value="미승인" class="new_addbtn2" title="미승인" onclick="approval1('${li.sidx}')">
             </cr:if>
-            </form>
         </li>
     </ol>
     </cr:forEach>
+            </form>
 </section>
 </cr:if>
 <section></section>
@@ -73,5 +73,5 @@
     </div>
 </footer>
 </body>
-<script src="./js/shopping_admin.js"></script>
+<script src="./js/shopping_admin.js?v=2"></script>
 </html>

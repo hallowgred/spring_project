@@ -28,14 +28,14 @@
     <div class="nav_div">
         <ol>
         <cr:if test="${list.get(3)==2}">
-            <li title="쇼핑몰 상품관리">쇼핑몰 관리자 리스트</li>
+            <li title="쇼핑몰 관리자 리스트" id="sp_admini">쇼핑몰 관리자 리스트</li>
             </cr:if>
-            <li title="쇼핑몰 회원관리">쇼핑몰 회원관리</li>
-            <li title="쇼핑몰 상품관리">쇼핑몰 상품관리</li>
-            <li title="쇼핑몰 기본설정">쇼핑몰 기본설정</li>
+            <li title="쇼핑몰 회원관리" id="sp_mem">쇼핑몰 회원관리</li>
+            <li title="쇼핑몰 상품관리" id="sp_pro">쇼핑몰 상품관리</li>
+            <li title="쇼핑몰 기본설정" id="sp_set">쇼핑몰 기본설정</li>
         </ol>
     </div>
 </nav>
 </body>
-<script src="./js/top.js?v=1"></script>
+<script src="./js/top.js?v=2"></script>
 </html>

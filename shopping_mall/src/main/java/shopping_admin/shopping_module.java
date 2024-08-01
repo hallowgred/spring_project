@@ -1,6 +1,5 @@
 package shopping_admin;
 
-import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Repository("shopping_module")
 public class shopping_module {
@@ -22,7 +20,13 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
-	PrintWriter pw =null;
+	//쇼핑몰 기본설정
+	public int sp_set(shopping_settings_dao dao){
+		return dao.getHidx()!=1 ? tm2.update("shopping.update_settings_sp",dao) : tm2.insert("shopping.insert_settings_sp",dao);
+	}
+	
+	
+	
 	//최고 관리자 리스트 배열 생성
 	public List<shopping_admin_dao> admini(){
 	List<shopping_admin_dao>dao =tm2.selectList("shopping.master_sel");	
@@ -57,30 +61,33 @@ public class shopping_module {
 	
 	
 	//로그인시 정보를 배열에 담기
-	public ArrayList<Object> login(String sid,String spass,HttpServletResponse res,shopping_admin_dao dao) throws Exception{
-		ArrayList<Object> list=null;
-		res.setContentType("text/html;charset=utf-8");
-		String pass = pass_security(dao);
-		this.pw=res.getWriter();
-		try {
-		Map<String, String> log = new HashMap<String, String>();
-		log.put("spass", pass);
-		log.put("sid", sid);
-		dao = tm2.selectOne("shopping.login",log);
-		list = dao.lists();
-		}catch(Exception e) {
-			System.out.println(e);	
-		}
-		return list;
+	public ArrayList<Object> login(String sid, String spass, HttpServletResponse res, shopping_admin_dao dao) throws Exception {
+	    ArrayList<Object> list = null;
+	    res.setContentType("text/html;charset=utf-8");
+	    String pass = pass_security(dao);
+	    try {
+	        Map<String, String> log = new HashMap<>();
+	        log.put("spass", pass);
+	        log.put("sid", sid);
+	        shopping_admin_dao result = tm2.selectOne("shopping.login", log);
+	        
+	        if (result != null) {
+	            list = result.lists();
+	        }
+	    } catch (Exception e) {
+	        System.out.println(e);
+	        e.printStackTrace();
+	    }
+	    return list;
 	}
+
 	
 	//비밀번호 보안 sha3
 	public String pass_security(shopping_admin_dao dao) {
 		StringBuilder sb=null;
 		try {
 			MessageDigest sha3 = MessageDigest.getInstance("SHA-256");
-			//String data=dao.getSpass();
-			String data="shop_master123";
+			String data=dao.getSpass();
 			byte[] pass= sha3.digest(data.getBytes());
 			sb = new StringBuilder();
 			for(byte b:pass) {
