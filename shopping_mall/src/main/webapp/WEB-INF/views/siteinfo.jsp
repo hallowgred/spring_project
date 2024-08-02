@@ -19,11 +19,13 @@
     <link rel="icon" href="./img/logo.png" sizes="16x16">
 </head>
 <body>
-<main class="maincss">
 <form id="settings_frm">
-<input type="hidden" value="${settings_list.get(0)}" name="hidx">
+<main class="maincss">
 <section>
     <p>홈페이지 가입환경 설정</p>
+    <cr:if test="${settings_list.get(0)!=''}">
+ <input type="hidden" value="${settings_list.get(0)}" name="hidx">
+ </cr:if> 
 <div class="subpage_view">
 <ul class="info_form">
     <li>홈페이지 제목</li>
@@ -181,15 +183,15 @@
     <button type="button" class="sub_btn2" title="저장 취소" onclick="delete_write_info()">저장 취소</button>
 </div>
 </section>
-</form>
 <section></section>
 <section></section>
 </main>
+</form>
 <footer class="main_copyright">
     <div>
         Copyright ⓒ 2024 shopbag All rights reserved.
     </div>
 </footer>
 </body>
-<script src="./js/siteinfo.js?v=3"></script>
+<script src="./js/siteinfo.js?v=5"></script>
 </html>

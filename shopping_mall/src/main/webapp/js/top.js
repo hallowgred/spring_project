@@ -13,3 +13,11 @@ document.querySelector("#sp_admini").addEventListener("click",function(){
 document.querySelector("#sp_set").addEventListener("click",function(){
 	location.href="./siteinfo";
 });
+
+document.querySelector("#sp_pro").addEventListener("click",function(){
+	location.href="./cate_list";
+});
+
+document.querySelector("#sp_mem").addEventListener("click",function(){
+	location.href="./shop_member_list";
+});

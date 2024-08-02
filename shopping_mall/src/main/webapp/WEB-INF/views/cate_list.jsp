@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ include file="./top.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,32 +18,17 @@
     <link rel="icon" href="./img/logo.png" sizes="16x16">
 </head>
 <body>
-<header class="headercss">
-    <div class="header_div">
-        <p><img src="./img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
-        <p>홍길동 관리자 <a href="#">[개인정보 수정]</a> <a href="#">[로그아웃]</a></p>
-    </div>
-</header>
-<nav class="navcss">
-    <div class="nav_div">
-        <ol>
-            <li title="쇼핑몰 회원관리">쇼핑몰 회원관리</li>
-            <li title="쇼핑몰 상품관리">쇼핑몰 상품관리</li>
-            <li title="쇼핑몰 기본설정">쇼핑몰 기본설정</li>
-        </ol>
-    </div>
-
-</nav>
 <main class="maincss">
     <section>    
 <p>카테고리관리 페이지</p>
 <div class="subpage_view">
     <span>등록된 카테고리 0건</span>
     <span>
-        <form>
         <select class="p_select1">
             <option>카테고리명</option>
-            <option>카테고리코드</option>
+	        <!--<cr:forEach var="list_cate" items="${cate_list}"></cr:forEach>-->
+            <option>${cate_list}</option>
+            
         </select>
         <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
         <input type="submit" value="검색" title="카테고리 검색" class="p_submit">
@@ -84,8 +72,8 @@
 <div class="subpage_view4">
     <input type="button" value="카테고리 삭제" title="카테고리 삭제" class="p_button">
     <span style="float: right;">
-    <input type="button" value="상품 리스트" title="상품 리스트" class="p_button p_button_color1">
-    <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2">
+    <input type="button" value="신규상품 등록" title="신규상품 등록" class="p_button p_button_color1" id="pro_list">
+    <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2" id="cate_list">
     </span>
 </div>
 </section>
@@ -96,4 +84,5 @@
     </div>
 </footer>
 </body>
+<script src="./js/cate_list.js"></script>
 </html>

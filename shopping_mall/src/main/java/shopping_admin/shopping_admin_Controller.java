@@ -31,51 +31,113 @@ public class shopping_admin_Controller extends shopping_module{
 		return "index";
 	}
 	
+	//카테고리 등록
+	@RequestMapping("/cate_write")
+	public String cate_write(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		if(list==null) {
+			this.pw=res.getWriter();
+		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.close();
+		}
+		return "cate_write";
+	}
+	
+	
+	//신규상품 등록
+	@RequestMapping("/product_write")
+	public String product_write(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		if(list==null) {
+			this.pw=res.getWriter();
+		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.close();
+		}
+		return "product_write";
+	}
+	
+	
 	//관리자 페이지 로드
 	@RequestMapping("/add_master")
-    public String addMaster() {
+    public String addMaster(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		if(list==null) {
+			this.pw=res.getWriter();
+		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.close();
+		}
         return "add_master";
     }
 	
+	//쇼핑몰 기본설정 로드
 	@RequestMapping("/siteinfo")
-	public String shopping_settings(shopping_settings_dao dao,Model m) {
+	public String shopping_settings(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,Model m) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		if(list==null) {
+			this.pw=res.getWriter();
+		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.close();
+		}else {
+			shopping_settings_dao dao= this.sp_set_sel();
 		if(dao!=null) {
-			shopping_settings_dao dao2= this.sp_set_sel(dao);
-		if(dao2!=null) {
 		m.addAttribute("settings_list",dao.list());
 		}
 		}
 		return "siteinfo";
 	}
 	
-	//쇼핑몰 기본설정 저장취소 파트
-	@GetMapping("/delete_write_info")
-	public String delete_write_info(String hidx,HttpServletResponse res) throws Exception{
+	//쇼핑몰 회원관리 로드
+	@RequestMapping("/shop_member_list")
+	public String member_list(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
-		String call="";
-		this.pw=res.getWriter();
-		try {
-		if(hidx==""||hidx==null||hidx.equals("")||hidx.equals(null)) {
-			call="<script>alert('데이터 오류로 인해 저장 취소에 실패하였습니다. 잠시후에 다시 시도해주세요.');history.back();</script>";
-		}else {
-			int result= this.delete_write_info1(hidx);
-			if(result==1) {
-					call="<script>alert('정상적으로 저장 취소 되었습니다.');location.href='./siteinfo';</script>";
-			}else {
-				call="<script>alert('데이터 오류로 인해 저장 취소에 실패하였습니다. 잠시후에 다시 시도해주세요.');history.back();</script>";
-			}
+		if(list==null) {
+			this.pw=res.getWriter();
+		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.close();
 		}
-		}catch(Exception e) {
-			this.pw.print("<script>alert('데이터 오류로 인해 저장 취소에 실패하였습니다. 잠시후에 다시 시도해주세요.');history.back();</script>");
-		}finally {
-			this.pw.print(call);
-			if(this.pw!=null) {
-				this.pw.close();
-			}
-		}
-		return null;
+		return "./shop_member_list";
 	}
 	
+	
+	//쇼핑몰 상품관리 로드
+	@RequestMapping("/cate_list")
+	public String cate_list(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,Model m,shopping_cate_dao dao) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		if(list==null) {
+			this.pw=res.getWriter();
+		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.close();
+		}else if(dao!=null){
+		//이거 dao형태로 select list형태로 배열 받아야됨
+		ArrayList<Object> arr =	dao.list();
+		m.addAttribute("cate_list",arr);
+		}
+		return "cate_list";
+	}
+	
+	//카테고리 생성 파트 
+	@PostMapping("/cate_make")
+	public void cate_make(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_cate_dao dao) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		if(list==null) {
+		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		}else {
+			if(dao!=null) {
+			int result = this.cate_make(dao);
+				if(result==1) {
+				this.pw.print("<script>alert('정상적으로 등록 되었습니다.');location.href='./cate_list';</script>");
+				}
+				else {
+					this.pw.print("<script>alert('데이터 오류로 인해 등록에 실패하였습니다.');history.back();</script>");	
+				}
+			}
+		}
+		if(this.pw!=null) {
+			this.pw.close();
+		}
+		
+	}
 	
 	//쇼핑몰 기본설정
 	@PostMapping("/siteinfo_write")
@@ -84,13 +146,13 @@ public class shopping_admin_Controller extends shopping_module{
 		res.setContentType("text/html;charset=utf-8");
 		try {
 		if(dao!=null) {
-			System.out.println(dao);
 		int result = this.sp_set(dao);
 		if(result==1) {
 			this.pw.print("<script>alert('정상적으로 저장 되었습니다.');location.href='siteinfo';</script>");
 			}
 		}
 		}catch(Exception e) {
+			System.out.println(e);
 			this.pw.print("<script>alert('데이터 오류로 인하여 저장하지 못하였습니다. 잠시후 다시 시도해주세요!');history.back();</script>");
 		}finally {
 			if(this.pw!=null) {

@@ -20,21 +20,21 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
-	//쇼핑몰 기본설정 저장취소 파트
-	public int delete_write_info1(String hidx) {
-		return tm2.delete("shopping.delete_write",hidx);
+	//카테고리 생성
+	public int cate_make(shopping_cate_dao dao) {
+		return tm2.insert("shopping.cate_make",dao);
 	}
 	
+	
 	//쇼핑몰 기본설정 데이터 select
-	public shopping_settings_dao sp_set_sel(shopping_settings_dao dao) {
-		return tm2.selectOne("shopping.sp_set_sel",dao.getHidx());
+	public shopping_settings_dao sp_set_sel() {
+		return tm2.selectOne("shopping.sp_set_sel");
 	}
 	
 	
 	//쇼핑몰 기본설정
 	public int sp_set(shopping_settings_dao dao){
 		return dao.getHidx()!=0 ? tm2.update("shopping.update_settings_sp",dao) : tm2.insert("shopping.insert_settings_sp",dao);
-		//return tm2.insert("shopping.insert_settings_sp",dao);
 	}
 	
 	

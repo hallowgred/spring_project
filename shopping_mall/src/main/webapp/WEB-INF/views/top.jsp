@@ -33,9 +33,10 @@
             <li title="쇼핑몰 회원관리" id="sp_mem">쇼핑몰 회원관리</li>
             <li title="쇼핑몰 상품관리" id="sp_pro">쇼핑몰 상품관리</li>
             <li title="쇼핑몰 기본설정" id="sp_set">쇼핑몰 기본설정</li>
+            <li title="쇼핑몰 공지사항" id="sp_not">쇼핑몰 공지사항</li>
         </ol>
     </div>
 </nav>
 </body>
-<script src="./js/top.js?v=2"></script>
+<script src="./js/top.js?v=3"></script>
 </html>
