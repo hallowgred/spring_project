@@ -79,8 +79,8 @@
 <div class="subpage_view4">
     <input type="button" value="선택상품 삭제" title="선택상품 삭제" class="p_button">
     <span style="float: right;">
-    <input type="button" value="신규상품 등록" title="신규상품 등록" class="p_button p_button_color1">
-    <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2">
+    <input type="button" id="product_make" value="신규상품 등록" title="신규상품 등록" class="p_button p_button_color1">
+    <input type="button" id="cate_list_go" value="카테고리 리스트" title="카테고리 리스트" class="p_button p_button_color2">
     </span>
 </div>
 </section>
@@ -91,4 +91,5 @@
     </div>
 </footer>
 </body>
+<script src="./js/product_list.js"></script>
 </html>

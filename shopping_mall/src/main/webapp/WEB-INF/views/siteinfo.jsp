@@ -23,9 +23,9 @@
 <main class="maincss">
 <section>
     <p>홈페이지 가입환경 설정</p>
-    <cr:if test="${settings_list.get(0)!=''}">
- <input type="hidden" value="${settings_list.get(0)}" name="hidx">
- </cr:if> 
+    <cr:if test="${settings_list.get(0)!=null}"> 
+  <input type="hidden" value="${settings_list.get(0)}" name="hidx">
+  </cr:if> 
 <div class="subpage_view">
 <ul class="info_form">
     <li>홈페이지 제목</li>

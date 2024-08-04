@@ -33,7 +33,7 @@
         <li>가입일자</li>
         <li>승인여부</li>
     </ol>
-    <cr:if test="${lists==''}">
+    <cr:if test="${admin_lists==null}">
     <ol class="new_admin_none">
         <li>신규 등록된 관리자가 없습니다.</li>
     </ol>
@@ -41,7 +41,7 @@
         <form id="approval_frm">
         <input type="hidden" value="" name="master" id="master">
         <input type="hidden" value="" name="sidx" id="sidx">
-    <cr:forEach var="li" items="${lists }" varStatus="stat">
+    <cr:forEach var="li" items="${admin_lists }" varStatus="stat">
     <ol class="new_admin_lists2">
         <li>${stat.index+1 }</li>
         <li>${li.sname}</li>

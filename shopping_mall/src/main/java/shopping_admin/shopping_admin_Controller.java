@@ -2,7 +2,9 @@ package shopping_admin;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
@@ -23,7 +27,74 @@ public class shopping_admin_Controller extends shopping_module{
 
 	PrintWriter pw = null;
 	
-
+	//상품 리스트 출력
+	@RequestMapping("/product_list")
+	public String product_list() {
+		
+		return "product_list";
+	}
+	
+	
+	//상품코드 중복체크
+	@PostMapping("/pcode_ck")
+	public String pcode_ck(@RequestBody String data,HttpServletResponse res) throws Exception{
+		String re= "";
+		try {
+			this.pw=res.getWriter();
+		int call = this.pcode_ck1(data.split("=")[0]);
+		if(call==1) {
+			re="사용할 수 없는 상품코드 입니다.";
+		}else{
+			re="사용할 가능한 상품코드입니다.";
+		}
+		}catch(Exception e) {
+			re="사용할 가능한 상품코드입니다.";	
+		}finally {
+			if(this.pw!=null) {
+				this.pw.print(re);
+				this.pw.close();
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	//상품 등록 페이지
+	@PostMapping("/product_write")
+	public String product_write(@SessionAttribute(name = "list",required = false) String list,shopping_product_dao dao,HttpServletResponse res) throws Exception{
+		this.pw=res.getWriter();
+		res.setContentType("text/html;charset=utf-8");
+		String re = "";
+		try {
+			if(list==null) {
+				re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
+			}else {
+			if(dao.getCate_name()!=null) {
+				int call = this.make_product();
+				if(call==1) {
+					re="<script>alert('정상적으로 상품등록 되었습니다.');location.href='./product_list';</script>";
+				}else {
+					re="<script>alert('데이터 오류로 인하여 등록하지 못하였습니다.');history.back();</script>";	
+				}
+			}else {
+				re="<script>alert('데이터 오류로 인하여 등록하지 못하였습니다.');history.back();</script>";	
+			}
+			}
+		}catch(Exception e) {
+			re="<script>alert('데이터 오류로 인하여 등록하지 못하였습니다.');history.back();</script>";
+			System.out.println(e);
+		}finally {
+			if(this.pw!=null) {
+				this.pw.print(re);
+				this.pw.close();
+			}
+		}
+		return "product_list";
+	}
+	
+	
+	
 	
 	//첫페이지 로그인 화면
 	@GetMapping("/admin")
@@ -46,12 +117,15 @@ public class shopping_admin_Controller extends shopping_module{
 	
 	//신규상품 등록
 	@RequestMapping("/product_write")
-	public String product_write(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+	public String product_write(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,Model m) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		if(list==null) {
 			this.pw=res.getWriter();
 		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
 		this.pw.close();
+		}else {
+			List<String> arr= this.arr_category();
+			m.addAttribute("category",arr);
 		}
 		return "product_write";
 	}
@@ -59,13 +133,7 @@ public class shopping_admin_Controller extends shopping_module{
 	
 	//관리자 페이지 로드
 	@RequestMapping("/add_master")
-    public String addMaster(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
-		res.setContentType("text/html;charset=utf-8");
-		if(list==null) {
-			this.pw=res.getWriter();
-		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
-		this.pw.close();
-		}
+    public String addMaster() {
         return "add_master";
     }
 	
@@ -109,8 +177,13 @@ public class shopping_admin_Controller extends shopping_module{
 		this.pw.close();
 		}else if(dao!=null){
 		//이거 dao형태로 select list형태로 배열 받아야됨
-		ArrayList<Object> arr =	dao.list();
-		m.addAttribute("cate_list",arr);
+			Map<String, Integer> a= new HashMap<String, Integer>();
+			a.put("a", 1);
+			a.put("b", 1);
+		//List<Object> arr=this.category();
+		List<Object> arr2=this.category2();
+		//m.addAttribute("cate_list",arr);
+		m.addAttribute("cate_list",arr2);
 		}
 		return "cate_list";
 	}
@@ -199,7 +272,7 @@ public class shopping_admin_Controller extends shopping_module{
 			this.pw.close();
 		}else {
 			List<shopping_admin_dao> ar =this.admini();
-			m.addAttribute("lists",ar);
+			m.addAttribute("admin_lists",ar);
 		}
 		return "shopping_admin";
 	}
@@ -242,7 +315,7 @@ public class shopping_admin_Controller extends shopping_module{
 		this.pw=res.getWriter();
 		int callback=this.signup(dao);
 		if(callback==1) {
-			this.pw.print("<script>alert('가입등록이 완료되었습니다. 로그인은 관리자승인 이후 가능합니다.');location.href='./index.jsp';</script>");
+			this.pw.print("<script>alert('가입등록이 완료되었습니다. 로그인은 관리자승인 이후 가능합니다.');location.href='./admin';</script>");
 		}else {
 			this.pw.print("<script>alert('데이터 오류로 인하여 가입등록에 실패하였습니다.');history.back();</script>");
 		}

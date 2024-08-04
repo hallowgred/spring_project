@@ -15,7 +15,7 @@ document.querySelector("#sp_set").addEventListener("click",function(){
 });
 
 document.querySelector("#sp_pro").addEventListener("click",function(){
-	location.href="./cate_list";
+	location.href="./product_list";
 });
 
 document.querySelector("#sp_mem").addEventListener("click",function(){

@@ -38,5 +38,5 @@
     </div>
 </nav>
 </body>
-<script src="./js/top.js?v=3"></script>
+<script src="./js/top.js?v=4"></script>
 </html>

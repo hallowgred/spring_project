@@ -26,9 +26,9 @@
     <span>
         <select class="p_select1">
             <option>카테고리명</option>
-	        <!--<cr:forEach var="list_cate" items="${cate_list}"></cr:forEach>-->
-            <option>${cate_list}</option>
-            
+	        <cr:forEach var="list_cate" items="${cate_list}">
+            <option>${list_cate.lname}</option>
+            </cr:forEach>
         </select>
         <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
         <input type="submit" value="검색" title="카테고리 검색" class="p_submit">
@@ -46,22 +46,27 @@
         <li>사용 유/무</li>
         <li>관리</li>
     </ul>
+    <cr:forEach var="category_list" items="${cate_list }">
     <ul>
         <li><input type="checkbox"></li>
-        <li style="text-align: left; text-indent: 5px;">분류코드</li>
-        <li>대메뉴 코드</li>
-        <li style="text-align: left; text-indent: 5px;">대메뉴명</li>
+        <li style="text-align: left; text-indent: 5px;">${category_list.classcode}</li>
+        <li>${category_list.lcode}</li>
+        <li style="text-align: left; text-indent: 5px;">${category_list.lname}</li>
         <li>-</li>
         <li style="text-align: left; text-indent: 5px;">-</li>
-        <li>Y</li>
+        <li>${category_list.cuse}</li>
         <li>[수정]</li>
     </ul>
+    </cr:forEach>
+    <cr:if test="${cate_list==null }">
+    
     <ul>
         <li style="width: 100%;">등록된 카테고리가 없습니다.</li>
     </ul>
+    </cr:if>
 </div>
 <div class="subpage_view3">
-    <ul class="pageing">
+    <ul class="pageing" style="text-align: center;">
         <li><img src="./ico/double_left.svg"></li>
         <li><img src="./ico/left.svg"></li>
         <li>1</li>

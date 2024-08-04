@@ -20,6 +20,25 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
+	//상품코드 중복체크
+	public int pcode_ck1(String pcode) {
+		return tm2.selectOne("shopping.pcode_ck",pcode);
+	}
+	
+	
+	//카테고리만 배열만들기
+	public List<String> arr_category() {
+		List<String> arr= tm2.selectList("shopping.cate_sel");
+		return arr;
+	}
+	
+	
+	//상품 등록 파트
+	public int make_product() {
+		return tm2.insert("shopping.make_product");
+	}
+	
+	
 	//카테고리 생성
 	public int cate_make(shopping_cate_dao dao) {
 		return tm2.insert("shopping.cate_make",dao);
@@ -37,7 +56,17 @@ public class shopping_module {
 		return dao.getHidx()!=0 ? tm2.update("shopping.update_settings_sp",dao) : tm2.insert("shopping.insert_settings_sp",dao);
 	}
 	
+	//카테고리만 리스트 배열
+	public List<Object> category() {
+	 List<Object> ar =	tm2.selectList("shopping.category");
+		return ar;
+	}
 	
+	//카테고리 전제 리스트 배열
+	public List<Object>  category2() {
+		List<Object> ar = tm2.selectList("shopping.category2");	
+		return ar;
+	}
 	
 	//최고 관리자 리스트 배열 생성
 	public List<shopping_admin_dao> admini(){
