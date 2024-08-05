@@ -19,7 +19,7 @@
     <link rel="icon" href="./img/logo.png" sizes="16x16">
 </head>
 <body>
-<form id="product_write_frm" >
+<form id="product_write_frm"  enctype="multipart/form-data">
 <main class="maincss">
 <section>
 <p>상품 등록 페이지</p>
@@ -82,7 +82,7 @@
         <li>판매 유/무</li>
         <li>
             <label class="product_label">
-            <input type="radio" name="pasles" style="vertical-align:-1px;" checked value="Y"> 판매시작
+            <input type="radio" name="psales" style="vertical-align:-1px;" checked value="Y"> 판매시작
             </label>
             <label class="product_label">
             <input type="radio" name="pasles" style="vertical-align:-1px;" value="N"> 판매종료
@@ -105,15 +105,15 @@
         <li>
             <ol style="width:100%; height: auto;">
             <li style="width:100%; height:45px;">
-            <input type="file" name="thumbnail" id="thumbnail1">
+            <input type="file" name="thumbnail1" id="thumbnail1">
             <span class="help_text">※ 상품 대표이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
             </li>
             <li style="height:45px;">
-            <input type="file" name="thumbnail" id="thumbnail2">
+            <input type="file" name="thumbnail1" id="thumbnail2">
             <span class="help_text">※ 추가 이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
             </li>
             <li style="height:45px;">
-            <input type="file" name="thumbnail" id="thumbnail3">
+            <input type="file" name="thumbnail1" id="thumbnail3">
             <span class="help_text">※ 추가 이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
             </li>
             </ol>
@@ -140,5 +140,5 @@
     </div>
 </footer>
 </body>
-<script src="./js/product_write.js?v=5"></script>
+<script src="./js/product_write.js?v=6"></script>
 </html>

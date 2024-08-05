@@ -34,8 +34,11 @@
             <li>
                 <input type="text" class="cate_input2" list="lg_menu" name="lcode" id="lcode">
                 <datalist id="lg_menu">
-                    <option>01</option>
-                    <option>02</option>
+                <cr:if test="${re!=null }">
+                <cr:forEach var="il" items="${re }">
+                    <option>${il.lcode}</option>
+                    </cr:forEach>
+                    </cr:if>
                 </datalist>
             </li>
             <li>※ 대메뉴에 사용할 코드 번호를 입력하세요 최소 2자 이상의 숫자로 입력하셔야 합니다.</li>

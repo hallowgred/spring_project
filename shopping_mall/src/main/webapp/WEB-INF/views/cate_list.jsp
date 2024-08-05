@@ -35,6 +35,7 @@
         </form>
     </span>
 </div>
+    <form id="delete_cate_frm">
 <div class="subpage_view2">
     <ul>
         <li><input type="checkbox"></li>
@@ -48,7 +49,7 @@
     </ul>
     <cr:forEach var="category_list" items="${cate_list }">
     <ul>
-        <li><input type="checkbox"></li>
+        <li><input type="checkbox" value="${catagory_list.cidx }" class="delete_categorys"></li>
         <li style="text-align: left; text-indent: 5px;">${category_list.classcode}</li>
         <li>${category_list.lcode}</li>
         <li style="text-align: left; text-indent: 5px;">${category_list.lname}</li>
@@ -58,13 +59,12 @@
         <li>[수정]</li>
     </ul>
     </cr:forEach>
-    <cr:if test="${cate_list==null }">
-    
+    <cr:if test="${empty cate_list}">
     <ul>
         <li style="width: 100%;">등록된 카테고리가 없습니다.</li>
     </ul>
     </cr:if>
-</div>
+</div></form>
 <div class="subpage_view3">
     <ul class="pageing" style="text-align: center;">
         <li><img src="./ico/double_left.svg"></li>
@@ -75,7 +75,7 @@
     </ul>
 </div>
 <div class="subpage_view4">
-    <input type="button" value="카테고리 삭제" title="카테고리 삭제" class="p_button">
+    <input type="button" value="카테고리 삭제" title="카테고리 삭제" class="p_button" id="delete_cate">
     <span style="float: right;">
     <input type="button" value="신규상품 등록" title="신규상품 등록" class="p_button p_button_color1" id="pro_list">
     <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2" id="cate_list">
@@ -89,5 +89,5 @@
     </div>
 </footer>
 </body>
-<script src="./js/cate_list.js"></script>
+<script src="./js/cate_list.js?v=2"></script>
 </html>

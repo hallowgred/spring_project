@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,16 +19,62 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class shopping_admin_Controller extends shopping_module{
 
 	PrintWriter pw = null;
 	
+	//상품삭제 파트
+	@PostMapping("/delete_product")
+	public String delete_product(@RequestParam("delete_pidx") String[] delete_pidx,@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+		String re="";
+		res.setContentType("text/html;charset=utf-8");
+		try {
+		this.pw=res.getWriter();
+		if(list==null) {
+			re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
+
+		}else {
+			int call= this.delete_pro(delete_pidx);
+			if(call==1) {
+				re="<script>alert('정상적으로 삭제 되었습니다.');location.href='./product_list';</script>";
+			}else {
+				re="<script>alert('데이터 오류로 인하여 삭제되지 않았습니다.');history.back()';</script>";
+			}
+		}
+		}catch(Exception e) {
+			System.out.println(e);
+		}finally {
+			if(this.pw!=null) {
+				this.pw.print(re);
+				this.pw.close();
+			}
+		}
+		return null;
+	}
+	
+	
+	
 	//상품 리스트 출력
 	@RequestMapping("/product_list")
-	public String product_list() {
-		
+	public String product_list(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,Model m) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		try {
+		if(list==null) {
+			this.pw=res.getWriter();
+		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.close();
+		}else {
+			List<Object> arr=this.productlist();
+			if(arr!=null) {
+				m.addAttribute("product_list",arr);				
+			}
+		}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 		return "product_list";
 	}
 	
@@ -62,7 +106,7 @@ public class shopping_admin_Controller extends shopping_module{
 	
 	//상품 등록 페이지
 	@PostMapping("/product_write")
-	public String product_write(@SessionAttribute(name = "list",required = false) String list,shopping_product_dao dao,HttpServletResponse res) throws Exception{
+	public String product_write(@SessionAttribute(name = "list",required = false) String list,@RequestParam("thumbnail1") MultipartFile f[],HttpServletRequest req ,shopping_product_dao dao,HttpServletResponse res) throws Exception{
 		this.pw=res.getWriter();
 		res.setContentType("text/html;charset=utf-8");
 		String re = "";
@@ -70,8 +114,8 @@ public class shopping_admin_Controller extends shopping_module{
 			if(list==null) {
 				re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
 			}else {
-			if(dao.getCate_name()!=null) {
-				int call = this.make_product();
+			if(dao!=null) {
+				int call = this.make_product(dao,f,req);
 				if(call==1) {
 					re="<script>alert('정상적으로 상품등록 되었습니다.');location.href='./product_list';</script>";
 				}else {
@@ -104,12 +148,17 @@ public class shopping_admin_Controller extends shopping_module{
 	
 	//카테고리 등록
 	@RequestMapping("/cate_write")
-	public String cate_write(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+	public String cate_write(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,Model m) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		if(list==null) {
 			this.pw=res.getWriter();
 		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
 		this.pw.close();
+		}else {
+			List<String> re = this.arr_lcode();
+			if(re!=null) {
+				m.addAttribute("re",re);
+			}
 		}
 		return "cate_write";
 	}
@@ -180,9 +229,7 @@ public class shopping_admin_Controller extends shopping_module{
 			Map<String, Integer> a= new HashMap<String, Integer>();
 			a.put("a", 1);
 			a.put("b", 1);
-		//List<Object> arr=this.category();
 		List<Object> arr2=this.category2();
-		//m.addAttribute("cate_list",arr);
 		m.addAttribute("cate_list",arr2);
 		}
 		return "cate_list";

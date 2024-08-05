@@ -11,14 +11,14 @@ document.querySelector("#make_product").addEventListener("click",function(){
 			alert("판매가격을 입력해주세요!");
 		}else if(space.test(product_write_frm.pea.value)){
 			alert("상품재고를 입력해주세요!");
-		}else if(space.test(product_write_frm.thumbnail1.value)&&!space.test(product_write_frm.thumbnail2.value)&&!space.test(product_write_frm.thumbnail3.value)){
+		}else if(space.test(product_write_frm.thumbnail1.value)&&space.test(product_write_frm.thumbnail2.value)&&space.test(product_write_frm.thumbnail3.value)){
 			alert("상품 대표이미지는 한가지 입력하셔야합니다!");
 		}else if(space.test(product_write_frm.pro_exp.value)){
 			alert("상품 상세설명을 입력해주세요!");
 		}else{
 		product_write_frm.method="post";
 		product_write_frm.action="./product_write";
-		//product_write_frm.submit();
+		product_write_frm.submit();
 		}
 	}
 });

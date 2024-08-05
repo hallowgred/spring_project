@@ -1,7 +1,10 @@
 package shopping_admin;
 
+import java.io.File;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Repository("shopping_module")
 public class shopping_module {
@@ -20,22 +25,86 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
+	//상품 삭제 파트
+	public int delete_pro(String[] delete_pidx) {
+		int w=0;
+		int count=0;
+		int result=0;
+		while(w<delete_pidx.length) {
+		int re= tm2.delete("shopping.delete_pro",delete_pidx[w]);
+		if(re==1) {
+			count++;
+		}
+		w++;
+		}if(count==delete_pidx.length) {
+			result=1;
+		}
+		return result;
+	}
+	
+	
+	//상품 리스트 출력
+	public List<Object> productlist() {
+		return tm2.selectList("shopping.pro_sel");
+	}
+	
 	//상품코드 중복체크
 	public int pcode_ck1(String pcode) {
 		return tm2.selectOne("shopping.pcode_ck",pcode);
 	}
 	
+	//대메뉴코드 배열만들기
+	public List<String> arr_lcode() {
+		Map<String, Integer> a = new HashMap<String,Integer>();
+		a.put("part",2);
+		return tm2.selectList("shopping.cate_sel",a);
+	}
 	
 	//카테고리만 배열만들기
 	public List<String> arr_category() {
-		List<String> arr= tm2.selectList("shopping.cate_sel");
-		return arr;
+		Map<String, Integer> a = new HashMap<String,Integer>();
+		a.put("part",1);
+		return tm2.selectList("shopping.cate_sel",a);
+	}
+	//파일 이름 변경파트
+	public String rename() {
+		Date day=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		String today = sdf.format(day);
+		int no = (int)Math.ceil(Math.random()*1000);
+		String datacode= today+no;
+		return datacode;
 	}
 	
-	
 	//상품 등록 파트
-	public int make_product() {
-		return tm2.insert("shopping.make_product");
+	public int make_product(shopping_product_dao dao,MultipartFile f[],HttpServletRequest req) {
+		try {
+		String url = req.getServletContext().getRealPath("/upload/");
+		int w=0;
+		ArrayList<String> al= new ArrayList<String>();	
+		ArrayList<String> al2= new ArrayList<String>();	
+		while(w<f.length) {
+			if(f[w].getSize()>0) {
+			al.add(f[w].getOriginalFilename());
+			int com=f[w].getOriginalFilename().indexOf(".");
+			String wd =f[w].getOriginalFilename().substring(com);
+			String refilename=this.rename()+wd;
+			al2.add(refilename);
+			//웹 디렉토리에 파일명이 변경되어서 저장됨
+			FileCopyUtils.copy(f[w].getBytes(), new File(url+refilename));
+			}
+			w++;
+		}
+		int ww=0;
+		String thumbnail="";
+		while(ww<al.size()) {
+			thumbnail+=al.get(ww)+"-"+al2.get(ww)+"/";
+			ww++;
+		}
+		dao.setThumbnail(thumbnail);
+		}catch(Exception e) {
+		}
+		return tm2.insert("shopping.make_product",dao);
 	}
 	
 	

@@ -3,18 +3,29 @@
 <mapper namespace="shopping">
 	
 		
-	
+	<select id="pro_sel" resultType="productdao">
+	select * from product order by pidx desc
+	</select>
 	<select id="cate_sel" resultType="catedao">
-	select lname from category 
+	select 
+	<choose>
+	<when test="part==1">
+	lname 
+	</when>
+	<when test="part==2">
+	lcode
+	</when>
+	</choose>
+	from category order by cidx desc 
 	</select>
 	<select id="category2" resultType="catedao">
-	select * from category
+	select * from category order by cidx desc
 	</select>
 	<select id="category" resultType="catedao">
-	select lname from category
+	select lname from category order by cidx desc
 	</select>
 	<select id="sp_set_sel" resultType="settingsdao">
-	select * from siteinfo 
+	select * from siteinfo  
 	</select>
 	<select id="id_check" resultType="shoppingdao" parameterType="map">
 	select sid from admin where sid = #{sid}
@@ -53,4 +64,9 @@
 	<update id="update_settings_sp">
 	update siteinfo set hname=#{hname},hemail=#{hemail},hpoint=#{hpoint},hsignpoint=#{hsignpoint},hsignlev=#{hsignlev},corname=#{corname},business_reg=#{business_reg},repname=#{repname},rephp=#{rephp},business_mail_order=#{business_mail_order},add_commu=#{add_commu},workplace_mail=#{workplace_mail},workplace=#{workplace},info_mng=#{info_mng},info_mng_email=#{info_mng_email},non_bank=#{non_bank},bank_num=#{bank_num},Credit_card=#{Credit_card},mobile_pay=#{mobile_pay},book_gift=#{book_gift},pay_low=#{pay_low},pay_hign=#{pay_hign},cash_rec=#{cash_rec},deli_name=#{deli_name},deli_pay=#{deli_pay},hope_day=#{hope_day} where hidx='1' 
 	</update>
+	
+	
+	<delete id="delete_pro">
+	delete from product where pidx=#{pidx}
+	</delete>
 </mapper>

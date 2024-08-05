@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="./top.jsp" %>
+    <%@ taglib prefix="cr" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -34,6 +35,7 @@
         </form>
     </span>
 </div>
+    <form id="delete_frm">
 <div class="subpage_view2">
     <ul>
         <li><input type="checkbox"></li>
@@ -49,23 +51,29 @@
         <li>품절</li>
         <li>관리</li>
     </ul>
+    <cr:if test="${not empty product_list}">
+    <cr:forEach var="list_product" items="${product_list }">
     <ul>
-        <li><input type="checkbox"></li>
-        <li>상품코드</li>
+        <li><input type="checkbox" value="${list_product.pidx}" name="delete_pidx" class="check_radio"></li>
+        <li>${list_product.pcode }</li>
         <li>이미지</li>
-        <li>상품명</li>
-        <li>카테고리 분류</li>
-        <li>34,000</li>
-        <li>30,000</li>
-        <li>11%</li>
-        <li>100</li>
-        <li>Y</li>
-        <li>N</li>
+        <li>${list_product.pname }</li>
+        <li>${list_product.cate_name }</li>
+        <li>${list_product.price }</li>
+        <li>${list_product.dis_price }</li>
+        <li>${list_product.discount }%</li>
+        <li>${list_product.pea }</li>
+        <li>${list_product.psales }</li>
+        <li>${list_product.early_sold_out }</li>
         <li>관리</li>
     </ul>
+    </cr:forEach>
+    </cr:if>
+   <cr:if test="${empty product_list}">
     <ul>
         <li style="width: 100%;">등록된 상품이 없습니다.</li>
     </ul>
+    </cr:if>
 </div>
 <div class="subpage_view3">
     <ul class="pageing">
@@ -76,8 +84,9 @@
         <li><img src="./ico/double_right.svg"></li>
     </ul>
 </div>
+    </form>
 <div class="subpage_view4">
-    <input type="button" value="선택상품 삭제" title="선택상품 삭제" class="p_button">
+    <input type="button" value="선택상품 삭제" title="선택상품 삭제" class="p_button" id="delete_pro">
     <span style="float: right;">
     <input type="button" id="product_make" value="신규상품 등록" title="신규상품 등록" class="p_button p_button_color1">
     <input type="button" id="cate_list_go" value="카테고리 리스트" title="카테고리 리스트" class="p_button p_button_color2">
@@ -91,5 +100,5 @@
     </div>
 </footer>
 </body>
-<script src="./js/product_list.js"></script>
+<script src="./js/product_list.js?v=2"></script>
 </html>
