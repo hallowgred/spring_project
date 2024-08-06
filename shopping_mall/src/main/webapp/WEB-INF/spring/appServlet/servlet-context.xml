@@ -21,6 +21,7 @@
 	<resources location="/product/" mapping="/product/**"></resources>
 	<resources location="/admin/" mapping="/admin/**"></resources>
 	<resources location="/ico/" mapping="/ico/**"></resources>
+	<resources location="/pay/" mapping="/pay/**"></resources>
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

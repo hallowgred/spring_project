@@ -8,5 +8,7 @@
 <typeAlias alias="settingsdao" type="shopping_admin.shopping_settings_dao"/>
 <typeAlias alias="catedao" type="shopping_admin.shopping_cate_dao"/>
 <typeAlias alias="productdao" type="shopping_admin.shopping_product_dao"/>
+<typeAlias alias="memberdao" type="shopping_admin.shopping_member_dao"/>
+<typeAlias alias="termsdao" type="shopping_admin.shopping_terms_dao"/>
 </typeAliases>
 </configuration>

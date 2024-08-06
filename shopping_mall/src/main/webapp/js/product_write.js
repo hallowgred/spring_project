@@ -1,4 +1,5 @@
 document.querySelector("#make_product").addEventListener("click",function(){
+		
 	if(confirm("상품을 등록하시겠습니까?")){
 	const space=/^\s*$/;
 		if(space.test(product_write_frm.cate_name.value)){
@@ -11,7 +12,7 @@ document.querySelector("#make_product").addEventListener("click",function(){
 			alert("판매가격을 입력해주세요!");
 		}else if(space.test(product_write_frm.pea.value)){
 			alert("상품재고를 입력해주세요!");
-		}else if(space.test(product_write_frm.thumbnail1.value)&&space.test(product_write_frm.thumbnail2.value)&&space.test(product_write_frm.thumbnail3.value)){
+		}else if(document.getElementById("thumbnail1").files.length==0&&document.getElementById("thumbnail2").files.length==0&&document.getElementById("thumbnail3").files.length==0){
 			alert("상품 대표이미지는 한가지 입력하셔야합니다!");
 		}else if(space.test(product_write_frm.pro_exp.value)){
 			alert("상품 상세설명을 입력해주세요!");

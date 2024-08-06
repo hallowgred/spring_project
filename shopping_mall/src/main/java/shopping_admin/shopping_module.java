@@ -25,6 +25,27 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
+	//약관 업데이트 및 인설트
+	public int terms_both(shopping_terms_dao dao) {
+		return dao.getTidx()==0 ? tm2.insert("shopping.insert_terms",dao) : tm2.update("shopping.update_terms",dao); 
+	}
+	
+	//약관 리스트 
+	public List<shopping_terms_dao> terms_agree() {
+		return tm2.selectList("shopping.sel_terms");
+	}
+	
+	//회원 상태 변경 파트
+	public int stat_change(shopping_member_dao dao) {
+		return tm2.update("shopping.changestat",dao);
+	}
+	
+	//회원 리스트 출력
+	public List<Object> member_list() {
+		return tm2.selectList("shopping.sel_member");
+	}
+	
+	
 	//상품 삭제 파트
 	public int delete_pro(String[] delete_pidx) {
 		int w=0;

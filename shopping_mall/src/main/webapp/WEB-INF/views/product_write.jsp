@@ -140,5 +140,5 @@
     </div>
 </footer>
 </body>
-<script src="./js/product_write.js?v=6"></script>
+<script src="./js/product_write.js?v=7"></script>
 </html>

@@ -39,6 +39,13 @@
 	<select id="pcode_ck" resultType="String">
 	select pcode product where pcode=#{pcode}
 	</select>
+	<select id="sel_member" resultType="memberdao">
+	select * from member order by midx desc
+	</select>
+	<select id="sel_terms" resultType="termsdao">
+	select * from terms where tidx='1'
+	</select>
+	
 	
 	<insert id="cate_make">
 	insert into category (cidx,classcode,lcode,lname,cuse) values ('0',#{classcode},#{lcode},#{lname},#{cuse})
@@ -53,18 +60,24 @@
 	<insert id="make_product">
 	insert into product (pidx,cate_name,pcode,pname,pex,price,discount,dis_price,pea,psales,early_sold_out,thumbnail,pro_exp,pdate) values ('0',#{cate_name},#{pcode},#{pname},#{pex},#{price},#{discount},#{dis_price},#{pea},#{psales},#{early_sold_out},#{thumbnail},#{pro_exp},now());
 	</insert>
+	<insert id="insert_terms">
+	insert into terms (tidx,terms,personal_information) values ('1',#{terms},#{personal_information})
+	</insert>
 	
 	
 	
-	
-	
+	<update id="changestat">
+	update member set mstat=#{mstat} where midx=#{midx}
+	</update>
 	<update id="approval">
 	update admin set master=#{master} where sidx=#{sidx}
 	</update>
 	<update id="update_settings_sp">
 	update siteinfo set hname=#{hname},hemail=#{hemail},hpoint=#{hpoint},hsignpoint=#{hsignpoint},hsignlev=#{hsignlev},corname=#{corname},business_reg=#{business_reg},repname=#{repname},rephp=#{rephp},business_mail_order=#{business_mail_order},add_commu=#{add_commu},workplace_mail=#{workplace_mail},workplace=#{workplace},info_mng=#{info_mng},info_mng_email=#{info_mng_email},non_bank=#{non_bank},bank_num=#{bank_num},Credit_card=#{Credit_card},mobile_pay=#{mobile_pay},book_gift=#{book_gift},pay_low=#{pay_low},pay_hign=#{pay_hign},cash_rec=#{cash_rec},deli_name=#{deli_name},deli_pay=#{deli_pay},hope_day=#{hope_day} where hidx='1' 
 	</update>
-	
+	<update id="update_terms">
+	update terms set terms=#{terms} , personal_information=#{personal_information} where tidx='1'
+	</update>
 	
 	<delete id="delete_pro">
 	delete from product where pidx=#{pidx}

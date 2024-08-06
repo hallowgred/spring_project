@@ -26,6 +26,92 @@ public class shopping_admin_Controller extends shopping_module{
 
 	PrintWriter pw = null;
 	
+	//쇼핑몰 회원관리 로드
+		@RequestMapping("/shop_member_list")
+		public String member_list(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,Model m) throws Exception{
+			res.setContentType("text/html;charset=utf-8");
+			try {
+				if(list==null) {
+					this.pw=res.getWriter();
+					this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+					this.pw.close();
+				}else {
+					List<shopping_terms_dao> arr=this.terms_agree();
+					List<Object> ar =this.member_list();
+					if(ar!=null) {
+						m.addAttribute("terms_list",arr);
+						m.addAttribute("member_list",ar);
+					}
+				}			
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			return "./shop_member_list";
+		}
+	
+	//약관동의 업데이트 및 인설트
+	@PostMapping("/terms")
+	public String terms(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_terms_dao dao) throws Exception{
+		String re="";
+		System.out.println(dao.getTidx());
+		res.setContentType("text/html;charset=utf-8");
+		try {
+		this.pw=res.getWriter();
+		if(list==null) {
+			re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
+		}else if(dao!=null){
+			int call = this.terms_both(dao);
+			if(call==1) {
+				re="<script>alert('정상적으로 변경 되었습니다.');location.href='./shop_member_list';</script>";
+				}else {
+					re="<script>alert('데이터 오류로 인하여 변경에 실패하였습니다.');history.back();</script>";
+				}
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			}finally {
+				if(this.pw!=null) {
+					this.pw.print(re);
+					this.pw.close();
+				}
+			}
+		return null;
+	}
+	
+	
+	//회원 상태 변경 파트
+	@PostMapping("/change_stat")
+	public String change_stat(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_member_dao dao) throws Exception{
+		String re="";
+		res.setContentType("text/html;charset=utf-8");
+		try {
+		this.pw=res.getWriter();
+		if(list==null) {
+			re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
+		}else if(dao!=null){
+			int call= this.stat_change(dao);
+			if(call==1) {
+				re="<script>alert('정상적으로 변경 되었습니다.');location.href='./shop_member_list';</script>";
+				}else {
+					re="<script>alert('데이터 오류로 인하여 변경에 실패하였습니다.');history.back();</script>";
+				}
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			}finally {
+				if(this.pw!=null) {
+					this.pw.print(re);
+					this.pw.close();
+				}
+			}
+		return null;
+	}
+	
+	
+	
+	
 	//상품삭제 파트
 	@PostMapping("/delete_product")
 	public String delete_product(@RequestParam("delete_pidx") String[] delete_pidx,@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
@@ -203,17 +289,7 @@ public class shopping_admin_Controller extends shopping_module{
 		return "siteinfo";
 	}
 	
-	//쇼핑몰 회원관리 로드
-	@RequestMapping("/shop_member_list")
-	public String member_list(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
-		res.setContentType("text/html;charset=utf-8");
-		if(list==null) {
-			this.pw=res.getWriter();
-		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
-		this.pw.close();
-		}
-		return "./shop_member_list";
-	}
+	
 	
 	
 	//쇼핑몰 상품관리 로드
