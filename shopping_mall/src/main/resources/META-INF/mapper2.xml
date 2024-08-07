@@ -42,9 +42,6 @@
 	<select id="sel_member" resultType="memberdao">
 	select * from member order by midx desc
 	</select>
-	<select id="sel_terms" resultType="termsdao">
-	select * from terms where tidx='1'
-	</select>
 	
 	
 	<insert id="cate_make">

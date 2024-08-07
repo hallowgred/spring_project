@@ -1,6 +1,8 @@
 package shopping_admin;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.FileCopyUtils;
@@ -25,15 +28,25 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
-	//약관 업데이트 및 인설트
-	public int terms_both(shopping_terms_dao dao) {
-		return dao.getTidx()==0 ? tm2.insert("shopping.insert_terms",dao) : tm2.update("shopping.update_terms",dao); 
+	
+	//약관 가져오기 파트
+	public JSONObject load_terms(HttpServletRequest req) throws Exception{
+		String uri = req.getServletContext().getRealPath("/resources/");
+		byte[] a = Files.readAllBytes(Paths.get(uri+"terms.txt"));
+		byte[] b = Files.readAllBytes(Paths.get(uri+"personal_information.txt"));
+		JSONObject jo =new JSONObject();
+		jo.put("terms", new String(a));
+		jo.put("personal_information",new String(b));
+		return jo;
 	}
 	
-	//약관 리스트 
-	public List<shopping_terms_dao> terms_agree() {
-		return tm2.selectList("shopping.sel_terms");
+	
+	//약관 수정 파트
+	public void modi_terms(String filename,String txt,HttpServletRequest req) throws Exception{
+		String uri = req.getServletContext().getRealPath("/resources/");
+		Files.write(Paths.get(uri+filename),txt.getBytes());
 	}
+	
 	
 	//회원 상태 변경 파트
 	public int stat_change(shopping_member_dao dao) {

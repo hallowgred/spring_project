@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,39 @@ public class shopping_admin_Controller extends shopping_module{
 
 	PrintWriter pw = null;
 	
+	//ajax로 약관 가져오기
+	@GetMapping("/terms_load")
+	public String terms_load(HttpServletRequest req,HttpServletResponse res) throws Exception{
+		this.pw=res.getWriter();
+		JSONObject jo = this.load_terms(req);
+		this.pw.print(jo);
+		this.pw.close();
+		return null;
+	}
+	
+	
+	//회원 약관 로드
+	@PostMapping("/terms")
+	public String terms(@RequestParam(value = "",required = false) String terms,@RequestParam(value = "",required = false)  String personal_information,HttpServletRequest req,@RequestParam(value = "",required = false) int hidden_no,HttpServletResponse res) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		try {
+			if(hidden_no==1) {
+				this.modi_terms("terms.txt",terms, req);
+			}else {
+				this.modi_terms("personal_information.txt", personal_information, req);			
+			}
+			this.pw.print("<script>alert('정상적으로 변경되었습니다.');location.href='./shop_member_list';</script>");
+		}catch(Exception e) {
+			this.pw.print("<script>alert('데이터 오류로 인하여 수정하지 못하였습니다.');history.back();</script>");
+			System.out.println(e);
+		}finally {
+			this.pw.close();
+		}
+		return null;
+	}
+	
+	
 	//쇼핑몰 회원관리 로드
 		@RequestMapping("/shop_member_list")
 		public String member_list(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,Model m) throws Exception{
@@ -36,10 +70,9 @@ public class shopping_admin_Controller extends shopping_module{
 					this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
 					this.pw.close();
 				}else {
-					List<shopping_terms_dao> arr=this.terms_agree();
 					List<Object> ar =this.member_list();
 					if(ar!=null) {
-						m.addAttribute("terms_list",arr);
+						//m.addAttribute("terms_list",arr);
 						m.addAttribute("member_list",ar);
 					}
 				}			
@@ -49,35 +82,6 @@ public class shopping_admin_Controller extends shopping_module{
 			return "./shop_member_list";
 		}
 	
-	//약관동의 업데이트 및 인설트
-	@PostMapping("/terms")
-	public String terms(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_terms_dao dao) throws Exception{
-		String re="";
-		System.out.println(dao.getTidx());
-		res.setContentType("text/html;charset=utf-8");
-		try {
-		this.pw=res.getWriter();
-		if(list==null) {
-			re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
-		}else if(dao!=null){
-			int call = this.terms_both(dao);
-			if(call==1) {
-				re="<script>alert('정상적으로 변경 되었습니다.');location.href='./shop_member_list';</script>";
-				}else {
-					re="<script>alert('데이터 오류로 인하여 변경에 실패하였습니다.');history.back();</script>";
-				}
-			}
-		}
-		catch(Exception e) {
-			System.out.println(e);
-			}finally {
-				if(this.pw!=null) {
-					this.pw.print(re);
-					this.pw.close();
-				}
-			}
-		return null;
-	}
 	
 	
 	//회원 상태 변경 파트
