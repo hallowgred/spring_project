@@ -56,7 +56,7 @@
     <ul>
         <li><input type="checkbox" value="${list_product.pidx}" name="delete_pidx" class="check_radio"></li>
         <li>${list_product.pcode }</li>
-        <li>이미지</li>
+        <li><img  src="./upload/${list_product.thumbnail.split("-")[1] }" width="30" height="30"></li>
         <li>${list_product.pname }</li>
         <li>${list_product.cate_name }</li>
         <li>${list_product.price }</li>

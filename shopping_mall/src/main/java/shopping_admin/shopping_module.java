@@ -28,6 +28,11 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
+	//공지사항 가져오기
+	public List<Object> notice_list(shopping_notice_dao dao){
+		return tm2.selectList("shopping.sel_notice_list",dao);
+	}
+	
 	
 	//약관 가져오기 파트
 	public JSONObject load_terms(HttpServletRequest req) throws Exception{

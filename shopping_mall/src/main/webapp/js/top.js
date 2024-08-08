@@ -20,4 +20,8 @@ document.querySelector("#sp_pro").addEventListener("click",function(){
 
 document.querySelector("#sp_mem").addEventListener("click",function(){
 	location.href="./shop_member_list";
+});		
+
+document.querySelector("#sp_not").addEventListener("click",function(){
+	location.href="./notice_list";
 });

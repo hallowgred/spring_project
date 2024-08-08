@@ -25,7 +25,7 @@
 	select lname from category order by cidx desc
 	</select>
 	<select id="sp_set_sel" resultType="settingsdao">
-	select * from siteinfo  
+	select * from siteinfo order by sidx desc
 	</select>
 	<select id="id_check" resultType="shoppingdao" parameterType="map">
 	select sid from admin where sid = #{sid}
@@ -42,6 +42,11 @@
 	<select id="sel_member" resultType="memberdao">
 	select * from member order by midx desc
 	</select>
+	<select id="sel_notice_list" resultType="noticedao">
+	select * from notice order by nidx desc
+	</select>
+	
+	
 	
 	
 	<insert id="cate_make">

@@ -27,6 +27,34 @@ public class shopping_admin_Controller extends shopping_module{
 
 	PrintWriter pw = null;
 	
+	//공지사항 작성 페이지
+	@RequestMapping("/notice_write")
+	public String notice_write() {
+		
+		return null;
+	}
+	
+	//공지사항 페이지 로드
+	@RequestMapping("/notice_list")
+	public String notice_list(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_notice_dao dao,Model m) throws Exception {
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		try {
+			if(list==null) {
+				this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+				this.pw.close();
+			}else {
+				if(dao!=null) {
+					List<Object> ar=this.notice_list(dao);
+					m.addAttribute("notice_list",ar);
+				}
+			}			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return "notice_list";
+	}
+	
 	//ajax로 약관 가져오기
 	@GetMapping("/terms_load")
 	public String terms_load(HttpServletRequest req,HttpServletResponse res) throws Exception{
