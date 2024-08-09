@@ -27,10 +27,40 @@ public class shopping_admin_Controller extends shopping_module{
 
 	PrintWriter pw = null;
 	
+	//공지사항 작성
+	@PostMapping("/notice_write1")
+	public String notice_write1(shopping_notice_dao dao,@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		String re = "";
+		try {
+			this.pw=res.getWriter();
+			if(list==null) {
+				re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
+			}else {
+				int call= this.write_notice(dao);
+				if(call==1) {
+					re="<script>alert('정상적으로 등록 되었습니다.');location.href='./notice_list';</script>";
+				}else {
+					re="<script>alert('데이터 오류로 인하여 등록하지 못하였습니다. 잠시 후 다시 시도해주세요.');history.back();</script>";
+				}
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}finally {
+			if(this.pw!=null) {
+				this.pw.print(re);
+				this.pw.close();
+			}
+		}
+		System.out.println(dao.getNtitle());	
+		return null;
+	}
+	
+	
 	//공지사항 작성 페이지
 	@RequestMapping("/notice_write")
 	public String notice_write() {
-		
+	
 		return null;
 	}
 	

@@ -57,7 +57,7 @@
 </div>
 <div class="board_btn">
     <button class="border_del">공지목록</button>
-    <button class="border_add">공지등록</button>
+    <button class="border_add" onclick="go_write()">공지등록</button>
 </div>
 </section>
 </main>

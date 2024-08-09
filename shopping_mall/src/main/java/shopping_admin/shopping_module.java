@@ -28,6 +28,13 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
+	//공지사항 작성
+	public int write_notice(shopping_notice_dao dao) {
+		return tm2.insert("shopping.insert_notice",dao);
+	}
+	
+	
+	
 	//공지사항 가져오기
 	public List<Object> notice_list(shopping_notice_dao dao){
 		return tm2.selectList("shopping.sel_notice_list",dao);
@@ -115,13 +122,13 @@ public class shopping_module {
 		return datacode;
 	}
 	
-	//상품 등록 파트
-	public int make_product(shopping_product_dao dao,MultipartFile f[],HttpServletRequest req) {
-		try {
-		String url = req.getServletContext().getRealPath("/upload/");
-		int w=0;
+	//파일저장 파트
+	public ArrayList<ArrayList<String>> file_write(MultipartFile f[],HttpServletRequest req)throws Exception{
+		ArrayList<ArrayList<String>> arr= new ArrayList<ArrayList<String>>();
 		ArrayList<String> al= new ArrayList<String>();	
 		ArrayList<String> al2= new ArrayList<String>();	
+		String url = req.getServletContext().getRealPath("/upload/");
+		int w=0;
 		while(w<f.length) {
 			if(f[w].getSize()>0) {
 			al.add(f[w].getOriginalFilename());
@@ -134,10 +141,19 @@ public class shopping_module {
 			}
 			w++;
 		}
+		arr.add(al);
+		arr.add(al2);
+		return arr;
+	}
+
+	//상품 등록 파트
+	public int make_product(shopping_product_dao dao,MultipartFile f[],HttpServletRequest req) {
+		try {
+			ArrayList<ArrayList<String>> arr=file_write(f, req);
 		int ww=0;
 		String thumbnail="";
-		while(ww<al.size()) {
-			thumbnail+=al.get(ww)+"-"+al2.get(ww)+"/";
+		while(ww<arr.get(0).size()) {
+			thumbnail+=arr.get(0).get(ww)+"-"+arr.get(1).get(ww)+"/";
 			ww++;
 		}
 		dao.setThumbnail(thumbnail);

@@ -48,7 +48,9 @@
 	
 	
 	
-	
+	<insert id="insert_notice">
+	insert into notice (nidx,ntitle,nwriter,nfile,ntext,nuse,nview,ndate) values ('0',#{ntitle},#{nwriter},#{nfile},#{ntext},#{nuse},#{nview},now())
+	</insert>
 	<insert id="cate_make">
 	insert into category (cidx,classcode,lcode,lname,cuse) values ('0',#{classcode},#{lcode},#{lname},#{cuse})
 	</insert>
