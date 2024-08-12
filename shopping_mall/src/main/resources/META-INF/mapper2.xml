@@ -45,7 +45,9 @@
 	<select id="sel_notice_list" resultType="noticedao">
 	select * from notice order by nidx desc
 	</select>
-	
+	<select id="sel_notice_files" resultType="noticedao">
+	select * from notice where cidx=#{cidx}
+	</select>
 	
 	
 	<insert id="insert_notice">
@@ -86,4 +88,8 @@
 	<delete id="delete_pro">
 	delete from product where pidx=#{pidx}
 	</delete>
+	<delete id="delete_notice">
+	delete from notice where nidx=#{nidx}
+	</delete>
+	
 </mapper>

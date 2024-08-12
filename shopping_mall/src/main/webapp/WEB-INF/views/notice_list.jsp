@@ -21,6 +21,7 @@
     <link rel="icon" href="./img/logo.png" sizes="16x16">
 </head>
 <body>
+<form id="notice_list_frm">
 <main class="maincss">
 <section>
     <p>공지사항 관리페이지</p>
@@ -35,12 +36,12 @@
     </ul>
     <cr:forEach var="list_notice" items="${notice_list }" varStatus="notice_idx">
     <ol>
-        <li><input type="checkbox"></li>
+        <li><input type="checkbox" value="${list_notice }" name="idx"></li>
         <li>${fn:length(notice_list)-notice_idx.index }</li>
         <li>${list_notice.ntitle }</li>
         <li>${list_notice.nwriter }</li>
         <li>${list_notice.ndate.substring(0,10) }</li>
-        <li>${list_notice.nview }</li>
+        <li>${list_notice.nview+0 }</li>
     </ol>
     </cr:forEach>
     <cr:if test="${empty notice_list }">
@@ -50,7 +51,7 @@
     </cr:if>
     </div>
     <div class="board_btn">
-        <button class="border_del">공지삭제</button>
+        <button class="border_del" onclick="go_noticedelete()">공지삭제</button>
         <button class="border_add" onclick="go_noticewrite()">공지등록</button>
     </div>
     <div class="border_page">
@@ -64,6 +65,7 @@
     </div>
 </section>
 </main>
+</form>
 <footer class="main_copyright">
     <div>
         Copyright ⓒ 2024 shopbag All rights reserved.

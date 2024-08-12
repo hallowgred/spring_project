@@ -28,8 +28,46 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
+	
+	//공지사항 삭제
+	public int delete_notice(String cidx[]) {
+		int w=0;
+		int result=1;
+		while(w<cidx.length) {
+		shopping_notice_dao dao= tm2.selectOne("shopping.sel_notice_files",cidx[w]);
+		if(dao==null) {
+			result=0;
+			break;
+		}
+		File f =new File(dao.getNfile().split("-")[0]);
+		f.delete();
+		w++;
+		}
+		int result2 =1;
+		if(result==1) {
+		int w2=0;
+		while(w2<cidx.length) {
+			 int re= tm2.delete("shopping.delete_notice",cidx);
+			 if(re==0) {
+				 result=0;
+				 break;
+			 }
+			w2++;
+		}
+		}
+		return result2;
+	}
+	
 	//공지사항 작성
-	public int write_notice(shopping_notice_dao dao) {
+	public int write_notice(shopping_notice_dao dao,MultipartFile f[],HttpServletRequest req) throws Exception{
+		ArrayList<ArrayList<String>>arr= file_write(f, req);
+		int ww=0;
+		String filenm="";
+		while(ww<arr.get(0).size()) {
+			filenm+=arr.get(0).get(ww)+"-"+arr.get(1).get(ww)+"/";
+			ww++;
+		}
+		dao.setNfile(filenm);
 		return tm2.insert("shopping.insert_notice",dao);
 	}
 	

@@ -19,7 +19,7 @@
     <link rel="icon" href="./img/logo.png" sizes="16x16">
 </head>
 <body>
-<form id="notice_write_frm">
+<form id="notice_write_frm" enctype="multipart/form-data">
 <main class="maincss">
 <section>
     <p>공지사항 등록페이지</p>
@@ -27,7 +27,7 @@
 <ul>
     <li>공지사항 여부</li>
     <li>
-        <label class="label_notice"><em class="cbox"><input type="checkbox" name="nuse"></em> 공지 출력</label> ※ 공지출력을 체크할 시 해당 글 내용은 최상단에 노출 되어 집니다.
+        <label class="label_notice"><em class="cbox"><input type="checkbox" name="nuse" value="Y"></em> 공지 출력</label> ※ 공지출력을 체크할 시 해당 글 내용은 최상단에 노출 되어 집니다.
     </li>
 </ul>
 <ul>
@@ -39,19 +39,19 @@
 <ul>
     <li>글쓴이</li>
     <li>
-        <input type="text" name="nwriter" class="notice_input2" readonly> ※ 관리자 이름이 노출 됩니다.       
+        <input type="text" name="nwriter" value="${list.get(2)}" class="notice_input2" readonly> ※ 관리자 이름이 노출 됩니다.       
     </li>
 </ul>
 <ul>
     <li>첨부파일</li>
     <li>
-        <input type="file" name="nfile"> ※ 첨부파일 최대 용량은 2MB 입니다.       
+        <input type="file" name="nfiles"> ※ 첨부파일 최대 용량은 2MB 입니다.       
     </li>
 </ul>
 <ul class="ul_height">
     <li>공지내용</li>
     <li>
-        <textarea class="notice_input3" name="ntext" placeholder="공지내용을 입력하세요!"></textarea>
+        <textarea class="notice_input3" name="ntext"  placeholder="공지내용을 입력하세요!"></textarea>
     </li>
 </ul>
 </div>

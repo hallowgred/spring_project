@@ -27,17 +27,44 @@ public class shopping_admin_Controller extends shopping_module{
 
 	PrintWriter pw = null;
 	
+	//공지사항 삭제 
+	@PostMapping("/notice_delete")
+	public String notice_delete(@RequestParam(name = "idx",required = false) String idx[],@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res)throws Exception {
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		try {
+			if(list==null) {
+			this.pw.print("<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>");	
+			}else {
+				if(idx.length>0) {
+				int callback = this.delete_notice(idx);
+				if(callback>0) {
+					this.pw.print("<script>alert('정상적으로 삭제 되었습니다.');location.href='./notice_list';</script>");
+				}else {
+					this.pw.print("<script>alert('데이터 오류로 인하여 삭제하지 못하였습니다.');history.back();</script>");
+				}
+				}
+			}
+		}catch(Exception e) {
+			this.pw.print("<script>alert('오류가 발생하여 삭제하지 못하였습니다.');history.back();</script>");
+			System.out.println(e);
+		}finally {
+			this.pw.close();
+		}
+		return null;
+	}
+	
 	//공지사항 작성
 	@PostMapping("/notice_write1")
-	public String notice_write1(shopping_notice_dao dao,@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+	public String notice_write1(shopping_notice_dao dao,@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,HttpServletRequest req,@RequestParam("nfiles") MultipartFile f[]) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		String re = "";
 		try {
 			this.pw=res.getWriter();
 			if(list==null) {
-				re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
-			}else {
-				int call= this.write_notice(dao);
+				re="<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>";
+			}else {		
+				int call= this.write_notice(dao,f,req);
 				if(call==1) {
 					re="<script>alert('정상적으로 등록 되었습니다.');location.href='./notice_list';</script>";
 				}else {
@@ -52,16 +79,24 @@ public class shopping_admin_Controller extends shopping_module{
 				this.pw.close();
 			}
 		}
-		System.out.println(dao.getNtitle());	
 		return null;
 	}
 	
 	
 	//공지사항 작성 페이지
 	@RequestMapping("/notice_write")
-	public String notice_write() {
-	
-		return null;
+	public String notice_write(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+		this.pw =res.getWriter();
+		try {
+			if(list==null) {
+				this.pw.print("<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>");
+				this.pw.close();
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return "notice_write";
 	}
 	
 	//공지사항 페이지 로드
@@ -71,7 +106,7 @@ public class shopping_admin_Controller extends shopping_module{
 		this.pw=res.getWriter();
 		try {
 			if(list==null) {
-				this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+				this.pw.print("<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>");
 				this.pw.close();
 			}else {
 				if(dao!=null) {
@@ -125,7 +160,7 @@ public class shopping_admin_Controller extends shopping_module{
 			try {
 				if(list==null) {
 					this.pw=res.getWriter();
-					this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+					this.pw.print("<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>");
 					this.pw.close();
 				}else {
 					List<Object> ar =this.member_list();
@@ -150,7 +185,7 @@ public class shopping_admin_Controller extends shopping_module{
 		try {
 		this.pw=res.getWriter();
 		if(list==null) {
-			re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
+			re="<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>";
 		}else if(dao!=null){
 			int call= this.stat_change(dao);
 			if(call==1) {
@@ -182,7 +217,7 @@ public class shopping_admin_Controller extends shopping_module{
 		try {
 		this.pw=res.getWriter();
 		if(list==null) {
-			re="<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>";
+			re="<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>";
 
 		}else {
 			int call= this.delete_pro(delete_pidx);
@@ -212,7 +247,7 @@ public class shopping_admin_Controller extends shopping_module{
 		try {
 		if(list==null) {
 			this.pw=res.getWriter();
-		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.print("<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>");
 		this.pw.close();
 		}else {
 			List<Object> arr=this.productlist();
@@ -360,7 +395,7 @@ public class shopping_admin_Controller extends shopping_module{
 		res.setContentType("text/html;charset=utf-8");
 		if(list==null) {
 			this.pw=res.getWriter();
-		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.print("<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>");
 		this.pw.close();
 		}else if(dao!=null){
 		//이거 dao형태로 select list형태로 배열 받아야됨
@@ -379,7 +414,7 @@ public class shopping_admin_Controller extends shopping_module{
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
 		if(list==null) {
-		this.pw.print("<script>alert('올바른 접근이 아닙니다.');location.href='./admin';</script>");
+		this.pw.print("<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>");
 		}else {
 			if(dao!=null) {
 			int result = this.cate_make(dao);
@@ -406,7 +441,7 @@ public class shopping_admin_Controller extends shopping_module{
 		if(dao!=null) {
 		int result = this.sp_set(dao);
 		if(result==1) {
-			this.pw.print("<script>alert('정상적으로 저장 되었습니다.');location.href='siteinfo';</script>");
+			this.pw.print("<script>alert('정상적으로 저장 되었습니다. ');location.href='siteinfo';</script>");
 			}
 		}
 		}catch(Exception e) {
@@ -453,7 +488,7 @@ public class shopping_admin_Controller extends shopping_module{
 		this.pw=res.getWriter();
 		res.setContentType("text/html;charset=utf-8");
 		if(!arr.get(3).equals((Object)2)) {
-			this.pw.print("<script>alert('잘못된 접근입니다.');location.href='./admin';</script>");
+			this.pw.print("<script>alert('잘못된 접근입니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>");
 			this.pw.close();
 		}else {
 			List<shopping_admin_dao> ar =this.admini();
