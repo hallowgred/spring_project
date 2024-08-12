@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 등록 페이지</title>
+    <title>공지사항 내용 확인 페이지</title>
     <link rel="stylesheet" type="text/css" href="./css/basic.css">
     <link rel="stylesheet" type="text/css" href="./css/login.css?v=10">
     <link rel="stylesheet" type="text/css" href="./css/main.css?v=10">
@@ -19,45 +19,41 @@
     <link rel="icon" href="./img/logo.png" sizes="16x16">
 </head>
 <body>
-<form id="notice_write_frm" enctype="multipart/form-data">
+<form id="notice_one_frm">
 <main class="maincss">
 <section>
-    <p>공지사항 등록페이지</p>
+    <p>공지사항 확인 페이지</p>
 <div class="write_view">
-<ul>
-    <li>공지사항 여부</li>
-    <li>
-        <label class="label_notice"><em class="cbox"><input type="checkbox" name="nuse" value="Y"></em> 공지 출력</label> ※ 공지출력을 체크할 시 해당 글 내용은 최상단에 노출 되어 집니다.
-    </li>
-</ul>
+<input type="hidden" value="${notice_one_list.get(0)}" name="idx">
+<input type="hidden" value="${notice_one_list.get(0)}" name="nidx">
 <ul>
     <li>공지사항 제목</li>
-    <li>
-        <input type="text" name="ntitle" class="notice_input1"> ※ 최대 150자까지 입력이 가능
+    <li><input type="text" value="${notice_one_list.get(1)}"  name="ntitle" style="border:none;"> * 제목 클릭시 수정가능
     </li>
 </ul>
 <ul>
     <li>글쓴이</li>
     <li>
-        <input type="text" name="nwriter" value="${list.get(2)}" class="notice_input2" readonly> ※ 관리자 이름이 노출 됩니다.       
+<input type="text" value="${notice_one_list.get(2)}" readonly="readonly" name="nwriter" style="border:none;">
     </li>
 </ul>
 <ul>
     <li>첨부파일</li>
     <li>
-        <input type="file" name="nfiles"> ※ 첨부파일 최대 용량은 2MB 입니다.       
+    <input type="text" value="${notice_one_list.get(3)}" readonly="readonly" name="files" style="border:none;">
     </li>
 </ul>
 <ul class="ul_height">
     <li>공지내용</li>
     <li>
-        <textarea class="notice_input3" name="ntext"  placeholder="공지내용을 입력하세요!"></textarea>
+        <div class="notice_input3" style="overflow-y: auto;"><textarea style="width:764px;height: 393px;border:none;" name="ntext" >${notice_one_list.get(4)}</textarea></div>
     </li>
 </ul>
 </div>
 <div class="board_btn">
-    <button class="border_del" onclick="go_list()">공지목록</button>
-    <button class="border_add" onclick="go_write()">공지등록</button>
+    <button class="border_del" id="notice_list">공지목록</button>
+    <button class="border_add" id="notice_modify">공지수정</button>
+    <button class="border_modify" style="margin-left: 8px;" id="notice_del">공지삭제</button>
 </div>
 </section>
 </main>
@@ -69,5 +65,5 @@
 </footer>
 </body>
 <% Date d=new Date(); %>
-<script src="./js/notice_write.js?v=<%=d%>"></script>
+<script src="./js/notice_view.js?v=<%=d%>"></script>
 </html>

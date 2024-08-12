@@ -26,6 +26,7 @@
 <section>
     <p>공지사항 관리페이지</p>
     <div class="subpage_view">
+    <input type="hidden" name="one_nidx" value="">
     <ul>
         <li><input type="checkbox"></li>
         <li>NO</li>
@@ -36,9 +37,9 @@
     </ul>
     <cr:forEach var="list_notice" items="${notice_list }" varStatus="notice_idx">
     <ol>
-        <li><input type="checkbox" value="${list_notice }" name="idx"></li>
+        <li><input type="checkbox" value="${list_notice.nidx }" name="idx"></li>
         <li>${fn:length(notice_list)-notice_idx.index }</li>
-        <li>${list_notice.ntitle }</li>
+        <li onclick="go_one_page('${list_notice.nidx }')">${list_notice.ntitle }</li>
         <li>${list_notice.nwriter }</li>
         <li>${list_notice.ndate.substring(0,10) }</li>
         <li>${list_notice.nview+0 }</li>

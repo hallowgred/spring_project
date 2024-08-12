@@ -28,34 +28,50 @@ public class shopping_module {
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
 	
+	//공지사항 수정파트
+	public int modify_notice(shopping_notice_dao dao) {
+		return tm2.update("shopping.modify_notice",dao);
+	}
 	
-	//공지사항 삭제
-	public int delete_notice(String cidx[]) {
-		int w=0;
-		int result=1;
-		while(w<cidx.length) {
-		shopping_notice_dao dao= tm2.selectOne("shopping.sel_notice_files",cidx[w]);
-		if(dao==null) {
-			result=0;
-			break;
-		}
-		File f =new File(dao.getNfile().split("-")[0]);
-		f.delete();
-		w++;
-		}
-		int result2 =1;
-		if(result==1) {
-		int w2=0;
-		while(w2<cidx.length) {
-			 int re= tm2.delete("shopping.delete_notice",cidx);
-			 if(re==0) {
-				 result=0;
-				 break;
-			 }
-			w2++;
-		}
-		}
-		return result2;
+	//공지사항 단일 페이지 출력
+	public ArrayList<Object> notice_one_page(String nidx){
+		ArrayList<Object> arr= new ArrayList<Object>();
+		shopping_notice_dao dao =tm2.selectOne("shopping.sel_notice_files",nidx);
+		arr.add(dao.getNidx());
+		arr.add(dao.getNtitle());
+		arr.add(dao.getNwriter());
+		arr.add(dao.getNfile());
+		arr.add(dao.getNtext());		
+		return arr;
+	}
+	
+	
+	//공지사항 삭제 파트
+	public int delete_notice(String[] idx,HttpServletRequest req) throws Exception {
+		int result = 1;
+	    for (String nidx : idx) {
+	        shopping_notice_dao dao = (shopping_notice_dao) tm2.selectOne("shopping.sel_notice_files", nidx);
+	        if (dao == null) {
+	            result = 0;
+	            break;
+	        }if(dao.equals(null)) {
+	        String url= req.getServletContext().getRealPath("/upload/");
+	        File f = new File(url+dao.getNfile().split("-")[1]);
+	        if (!f.delete()) {
+	            throw new Exception("file delete error");
+	        	}
+	        }
+	    }
+
+	    if (result == 1) {
+	        for (String nidx : idx) {
+	            int re = tm2.delete("shopping.notice_delete", nidx);
+	            if (re == 0) {
+	                throw new Exception("DB delete error");
+	            }
+	        }
+	    }
+	    return result;
 	}
 	
 	//공지사항 작성
@@ -226,7 +242,7 @@ public class shopping_module {
 	
 	//카테고리 전제 리스트 배열
 	public List<Object>  category2() {
-		List<Object> ar = tm2.selectList("shopping.category2");	
+		List<Object> ar = tm2.selectList("shopping.category");	
 		return ar;
 	}
 	
