@@ -1,4 +1,4 @@
-[Spring]
+[Spring] - POJO 프로그램 (순수 Java를 통해서 생성한 객체 형태의 구조)
 (약40%)Maven project => xml기반의 Spring을 사용하는 프로젝트 (Tomcat 8.5) - LInux기반
 (약60%)Spring legacy Project => properties기반으로 Spring을 사용하는 프로젝트 (VMware) - Vmware (Linux : Ubuntu)-> Docker -> Cloud Server
  -legacy project일때 도메인을 설정해야하는데 ((예) kr.co.abc ==> GroupId.artifactId.ProjectId )
@@ -569,35 +569,67 @@ CDN
     }
   }
 
+[페이지 출력]
+  관리자 => 게시판 리스트, 회원리스트, FAQ리스트,결제 리스트, 상품 리스트, 배너 리스트
+  Guest => 게시판 리스트 , 장바구니 리스트, 결제내역 리스트, 결제형태 리스트
+
+
+  -파라미터 page출력해서 보여지는 형태,파라미터 page없이 출력되는 형태로
+  -B : pageing,counting
+  -F : (X)
+
+  [JSON file => F가 리스트 출력, pageing]
+  B : JSONObject, JSONArray => RestAPI
+  F : API Data => pageing,counting
+
+
+  B : 리스트 출력 , pageing, 검색기능
+  F : API 서버 구축 => 리스트 출력, pageing, 검색기능
+  Full : Back-end API => script출력
+
+
+  공지사항 
+  1. API 주소를
+  2. API 접속코드
+  3. GET,POST
+  4. 배열 Key, 일반 배열
+  ajax => 비동기, 동기
+  5. Javascript, React , Vue m ECMA... 출력
+  6. 게시판 리스트 내용 보는 경우 
+  7. 게시판 내용을 수정 (Fetch)
+  8. 게시판 내용 삭제 (delete)
+  9. 게시판 글쓰기 (PUT,POST)
+  HTTP 메소드 5요소
+  GET,POST,PUT,FETCH,DELETE
 
 ========================================================================================================================================================================================================================
 [GIT]
 
-  git init => github 사이트의 있는 파일과 현재 IDE Project를 동기화 하는 디렉토리를 확인하는 작업
+      git init => github 사이트의 있는 파일과 현재 IDE Project를 동기화 하는 디렉토리를 확인하는 작업
 
-  [사용자추가] - local 사용하는 방식
-  user.name : git에서 사용하는 사용자 이름
-  user.email : Git에서 로그인하는 이메일 정보
+      [사용자추가] - local 사용하는 방식
+      user.name : git에서 사용하는 사용자 이름
+      user.email : Git에서 로그인하는 이메일 정보
 
-  global user.name 또는 user.email : 전역형태의 방식으로 사용
+      global user.name 또는 user.email : 전역형태의 방식으로 사용
 
-  추가하는 방법
-  git config user.name '이름'
-  git config user.email 'git 사용 이메일'
+      추가하는 방법
+      git config user.name '이름'
+      git config user.email 'git 사용 이메일'
 
-  git config --global user.name 
+      git config --global user.name 
 
-[key]
-  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
-  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
+  [key]
+    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
+    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
 
 
-[branch 설정]
-  git에서 branch를 모두 설정 후 git bash에서 추가 셋팅을 하게 됩니다.
+  [branch 설정]
+    git에서 branch를 모두 설정 후 git bash에서 추가 셋팅을 하게 됩니다.
 
-  git branch : branch리스트를 확인
-  git branch 추가할 brnach명
-  git checkout branch명 : default branch가 변경됨
+    git branch : branch리스트를 확인
+    git branch 추가할 brnach명
+    git checkout branch명 : default branch가 변경됨
 
 
 
@@ -605,208 +637,480 @@ CDN
 ====================================================================================================================================================================================================================================================================================================================================================================================================================================
 [SERVER]
 
-[OS-Linux]
- -RedHat(유료)
-    -CentOS(무료)
-    -Fedora(무료)
- -Ubuntu(임베디드) - 무료 (Git,Node.js)
- -Suse
+  [OS-Linux]
+    -RedHat(유료)
+        -CentOS(무료)
+        -Fedora(무료)
+    -Ubuntu(임베디드) - 무료 (Git,Node.js)
+    -Suse
 
+    
+
+  [OS-window Server] - 유료
+  -OS(라이센스),Mssql(라이센스)
+
+  [OS-IBM,HP,Unix]
+
+  [AWS - Amazon-Web-service || Naver Cloud || Google Cloud]
+      AWS - EC2 (Sass, Pass, Lass)
+      Naver - Server (Coustom - 사용자가 직접 모든 내용을 선택하면 자동으로 설치됨) - 자동 설치
+      Google - Cloud (Console 위주의 셋팅 방식) -무료(90일까지 가능)/유료 - 직접 설치(운영체제는 설치됨)
+
+      CentOS7,8 (공식적 서비스X) => Daum(Kakao)
+
+      연습용 무료 방식 virtualBox : Ubuntu + Docker => CentOS (Oracle,Mysql,MariaDB,Nosql,PostgelSQL) 
+      Ubuntu를 먼저 설치했다가 나중에 OS를 변경함
+
+  [Server Setting 순서]
+      1. virtualBox (GateWay) - 호스트 전용(IP : 192),NAT 네트워크(IP : 10) - TCP,UDP(서버에서 내부 PORT를 먼저 열어야됨)
+      2. OS 설치 - Docker => Server1,Server2,Server3..
+      3. IP셋팅 => 1개의 서버에 1개의 IP 적용,1개의 서버에 여러개의 IP가 적용될 수 있음
+      4. SSH 설치 => 원격 접속을 할 수 있도록 해주는 프로세스
+      5. OS운영체제를 업데이트 
+      6. FTP를 설치 (PORT 21) -  X / SFTP(PORT 22 - SSH랑 PORT번호가 같음)
+      7. WEB (Apach - httpd(데몬이름),Nginx - nginx) - 둘다 기본 PORT는 80
+      8. Database (MariaDB , Mysql), Oracle, Nosql, PostgelSQL
+      9. Java --version (Java1.7 or 1.8) => Update JDK => /etc/profile(에서 자바 버전 맞추기)
+      10. Tomcat Version 설치
+          -퍼미션 셋팅 : (window만 설정해줘야됨)
+          chmod +x /home/사용자디렉토리/tomcat/bin/startup.sh - 가동
+          chmod +x /home/사용자디렉토리/tomcat/bin/shutdown.sh - 정지
+          chmod +x /home/사용자디렉토리/tomcat/bin/catalina.sh - Tomcat 엔진
+
+
+          (linux도 이건 해줘야됨)
+          이후 netstat -an 쳐서 포트번호가 작동하는지 확인
+          작동 하는걸 확인하면 ./startup.sh 입력
+          wget 으로 해당 파일을 다운로드 받음
+          tar -xvf 압축파일명  : 으로 설치
+          mv 파일명 변경할 파일명 :으로 파일명을 vi /etc/httpd/conf/vhost.conf에 
+          설정한 파일명이랑 맞춰줌
+          ./startup.sh로 tomcat실행시켜줌
+          ./shutdown.sh으로 정지시킴
+          vi /etc/httpd/conf/vhost.conf => 해당 사용자 Tomcat web 경로로 설정
+          ./startup.sh로 tomcat실행시켜줌
+
+
+  [TOMCAT - PORT번호 변경]
+    cd /home/shop/tomcat/conf/
+    vi server.xml로 들어가서 내리다가 8080 포트번호를 사용할 포트번호로 변경 
+    cd /home/shop/tomcat/bin/ 위치로 와서 ./startup.sh 실행
+  (Accept)
+    iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+    80포트번호를 8080포트번호로 강제로 변경
+
+  (Delete)
+    iptables -t nat -D PREROUTING 1
+    리다이렉트한 ip를 삭제 뒤에 숫자는 몇번째 위치인지
+
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+
+  [IPTABLES]
+    iptables 
+    -t : target
+    -L : 현재포워딩 리스트 목록
+    nat : Network
+
+  [FTP - PORT 변경법]
+    vi /etc/vsftpd/vsftpd.conf 들어가서   
+    12라인 YES를 NO로 변경 (아이디 비밀번호 없이 접속하는걸 막는 코드)
+    125라인에 listen_port='원하는 포트 번호' 을 변경 (변경한 포트 번호로 FTP 포트번호가 변경됨)
+
+
+
+
+
+  [Net-Mask]
+      -네트위크의 주소를 32bit 형태로 구성하는 연결 연산 주소
+
+      일반적으로 
+      255.0.0.0 - A
+      255.255.0.0 - B
+      255.255.255.0 - C
+      255.255.255.255 - D
+
+  [NAT - 내부에서 사용하는 IP]
+      - NAS
+
+
+
+
+  [운영체제 관련 정보]
+      - /boot => booting
+      -/usr => mysql,oracle,mariadb,ftp,ssh..각종 데몬을 설치 경로
+      -/var => 메일 로그기록 각종 로그기록이 저장 되는 경로
+      -/home => 웹 서비스를 제공하는 경로
+      -/etc => 각종 데몬의 환경설정 (start,stop,status,conf 제공)
+      -/swap => 처리메모리 영역
+      -root => 리눅스 최고관리자 이며, 모든 프로세서를 관리하는 관리자
+      -administrator => 윈도우서버 최고관리자
+
+  [(기본서버)CentOS]  
+      -docker => 각 파티션으로 가상의 서버로 분활
+      1. DB서버 - Mysql,MariaDB,Oracle
+      2. WEB서버 - Apach,Nginx,Tomcat 
+      3. CDN서버 - FTP (이미지 전용서버)
+
+
+    ip 10.0.2.15
+    서브넷 255.255.255.0
+    라우트 10.0.2.2
+    DNS 168.126.63.1   168.126.63.2
+
+
+  [Linux 명령어]
+    su : SuperUser(root) root로 전환 
+    ifconfig : 자신의 ip주소를 확인하는 명령어
+    nslookup : 외부서버에 연결이 가능한지 확인하는 명령어
+    pwd : 현재 디렉토리 경로
+    cd : change directory 약어로 경로를 변경할 때 사용
+    ls -al : 해당 경로에 파일 리스트를 확인 할때 사용하는 명령어
+    useradd '추가할 유저명' : 유저 추가하기
+    passwd '유저명' : 패스워드 설정
+    ntsysv : 데몬관리 프로그램
+    shift+; : vi에서 마무리하는 문법
+    selinux : 보안 포트를 방화벽과 연계해서 사용되는 데몬
+    who : 서버에 접속하고 있는 유저 확인
+    kill -9 (난수) : 서버에서 그 유저를 추방
+    free -m : 프로세스를 MB형식으로 보여줌
+    top : 실시간으로 돌아가는 프로세스를 보여줌
+    df : 디스크에 현재 사용 용량을 보여줌
+    mysql_install_db --user=mysql : mysql 설치 후 딱 한번 실행 (초기화)
+    systemctl enable () : 해당 프로세스 자동 실행
+    mysqld_safe --skip-grant-tables & : 안전모드
+    netstat -nap | grep LISTEN : 현재 작동되고있는 포트만 리스트 출력
+
+
+  [vi편집기로 편집을 해서 설정 ]
+      i : 입력 
+      ESC : 새로운 명령어 입력
+      wq : write quick 저장하고 나가기 
+      q! : 저장하지 않고 나가기
+
+
+    vi /etc/selinux/config => 들어가서 disabled로 변경해야됨
+
+
+
+    mkdir : 디렉토리 생성
+    wget : 외부 URL을 이용하여 파일 및 이미지, 동영상.. 서버에 직접 다운로드 받을 수 있습니다.
+    rm -drf: 파일,디렉토리 삭제
+    mv : 파일명 변경
+    yum update : 리눅스 전반적인 패키지를 모두 업데이트
+
+    vi text.txt 
+    -메모장 생성
+    cat text.txt
+    메모장 내용 확인
+
+  [sshd]
+    -외부에서 서버로 접속할 수 있는 프로토콜
+    -service sshd stop (외부접속 차단)
+    -service sshd start (외부접속 허용)
+    -service sshd restart (재가동)
+
+
+
+  [sshd-환경설정]
+    -22포트를 오픈시켜서 외부접속 허용
+    vi /etc/ssh/ssh_config
+    vi /etc/ssh/sshd_config
+    에서 포트번호를 #을 지움
+
+  [퍼미션]
+    r : 읽기(4)
+    w : 쓰기(2)
+    x : 실행(1)
+    rwx---rwx:707
+
+  [RDBMS,DBMS-DOCKER]
+    1. docker search mysql:버전 : 다운받을 mysql버전 확인
+    2. docker pull mysql:8.4 : mysql 8.4버전을 다운
+    3. docker run --name mysql -e MYSQL_ROOT_PASSWORD=1234 -d -p 9306:3306 mysql:8.4
+    mysql이란 이름으로 비밀번호 생성 후 9306이란 포트번호로 mysql8.4버전을 실행시키는 코드
+    4. netstat -nap | grep LISTEN : 현재 작동중인 포트번호 확인
+    5. docker container ps => database 사용 유/무
+    6. 언어셋 변경 => latin1 -> utf8mb4(utf8은 일본어 깨지고 이모티콘이 꺠짐 그래서 utf8mb4로 하면 이모티콘이 안깨지고 잘들어감) 
+    docker exec -it mysql bash : bash모드로 변경
+    microdnf install vi
+    microdnf install vim
+    두개 다운로드 받아야지만 vi가 실행됨
+    vi /etc/my.conf로 들어가서 언어셋 
+    [mysqld]
+    character_set_server=언어
+    [client]
+    default-character-set=언어
+    [mysqldump]
+    default-character-set=언어
+
+    7. mysqladmin -u root -p reload
+    8. 사용자 및 database를 생성하여 연결하시면 됩니다.
+
+    insert into db values ('localhost','master','master','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y')
+    create table order_part(
+      oidx int(6) not null auto_increment,
+      oproduct varchar(100) not null,
+      orderno char(5) not null,
+      orderpay int(8) not null,
+      today timestamp not null default current_timestamp,
+      primary key(oidx),
+      unique key(orderno)
+    );
+
+
+  [root 패스워드 - loss]
+    systemctl stop mariadb  : mariadb 정지
+    mysqld_safe --skip-grant-tables & : 안전모드 실행
+    mysql -u root -p : 비밀번호 없이 로그인
+    update user set password=password('a1234') where user='root' : 비밀번호 변경
+    mysqladmin -u root -p shutdown : 안전모드 종료
+    systemctl start mariadb : mariadb 실행
+    mysql -u root -p : 변경한 실제 패스워드로 로그인
+
+  [window 전용 - microsoft]
+    wsl : window system linux
+    virtualbox : 윈도우 mac 둘다 호완 
+
+
+[결제 시스템 - KG이니시스] 
+  [PG 엔진]
+  -사업자 등록증, 통신사업자번호, 대표번호, 대표이메일, 개인정보담당자, 개인정보약관, https작동여부(SSL 인증서) 등등이 있어야지 회원가입이 가능함
+  - 국내PG (NGN KCP, KG이니시스, 다날(모바일전용), 나이스페이) 
+  - 국외PG (페이팔,엑심베이) - master,visa
+  - 개발언어 및 사이트 주소 => PG사
+   (X) -담배, 술, 마약, 스포츠, 게임 아이템, 부동산 (최대결제금액이 약 5천만원정도)
+    -사이트 개발(메인,포그인,회원가입,관리자,결제페이지,장바구니)
   
 
-[OS-window Server] - 유료
- -OS(라이센스),Mssql(라이센스)
+[DOCKER]
+  -일반사용자,root
+  -단, 이미 모든 운영체제 및 셋팅이 완료된 사용자는 x
+  -셋팅이 안된 사용자를 위주로 docker사용
 
-[OS-IBM,HP,Unix]
+  -docker hub -> git
 
-[AWS - Amazon-Web-service || Naver Cloud || Google Cloud]
-  AWS - EC2 (Sass, Pass, Lass)
-  Naver - Server (Coustom - 사용자가 직접 모든 내용을 선택하면 자동으로 설치됨) - 자동 설치
-  Google - Cloud (Console 위주의 셋팅 방식) -무료(90일까지 가능)/유료 - 직접 설치(운영체제는 설치됨)
-
-  CentOS7,8 (공식적 서비스X) => Daum(Kakao)
-
-  연습용 무료 방식 virtualBox : Ubuntu + Docker => CentOS (Oracle,Mysql,MariaDB,Nosql,PostgelSQL) 
-  Ubuntu를 먼저 설치했다가 나중에 OS를 변경함
-
-[Server Setting 순서]
-  1. virtualBox (GateWay) - 호스트 전용(IP : 192),NAT 네트워크(IP : 10) - TCP,UDP(서버에서 내부 PORT를 먼저 열어야됨)
-  2. OS 설치 - Docker => Server1,Server2,Server3..
-  3. IP셋팅 => 1개의 서버에 1개의 IP 적용,1개의 서버에 여러개의 IP가 적용될 수 있음
-  4. SSH 설치 => 원격 접속을 할 수 있도록 해주는 프로세스
-  5. OS운영체제를 업데이트 
-  6. FTP를 설치 (PORT 21) -  X / SFTP(PORT 22 - SSH랑 PORT번호가 같음)
-  7. WEB (Apach - httpd(데몬이름),Nginx - nginx) - 둘다 기본 PORT는 80
-  8. Database (MariaDB , Mysql), Oracle, Nosql, PostgelSQL
-  9. Java --version (Java1.7 or 1.8) => Update JDK => /etc/profile(에서 자바 버전 맞추기)
-  10. Tomcat Version 설치
-      -퍼미션 셋팅 : (window만 설정해줘야됨)
-      chmod +x /home/사용자디렉토리/tomcat/bin/startup.sh - 가동
-      chmod +x /home/사용자디렉토리/tomcat/bin/shutdown.sh - 정지
-      chmod +x /home/사용자디렉토리/tomcat/bin/catalina.sh - Tomcat 엔진
+  -docker image제공 -> mysql,mariadb,apache,nginx,oracle,postglesql,nosql,OS
 
 
-      (linux도 이건 해줘야됨)
-      이후 netstat -an 쳐서 포트번호가 작동하는지 확인
-      작동 하는걸 확인하면 ./startup.sh 입력
-      wget 으로 해당 파일을 다운로드 받음
-      tar -xvf 압축파일명  : 으로 설치
-      mv 파일명 변경할 파일명 :으로 파일명을 vi /etc/httpd/conf/vhost.conf에 
-      설정한 파일명이랑 맞춰줌
-      ./startup.sh로 tomcat실행시켜줌
-      ./shutdown.sh으로 정지시킴
-      vi /etc/httpd/conf/vhost.conf => 해당 사용자 Tomcat web 경로로 설정
-      ./startup.sh로 tomcat실행시켜줌
-
-
-[TOMCAT - PORT번호 변경]
-cd /home/shop/tomcat/conf/
-vi server.xml로 들어가서 내리다가 8080 포트번호를 사용할 포트번호로 변경 
-cd /home/shop/tomcat/bin/ 위치로 와서 ./startup.sh 실행
-(Accept)
-iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
-8080포트번호를 80포트번호로 강제로 변경
-
-(Delete)
-iptables -t nat -D PREROUTING 1
-리다이렉트한 ip를 삭제 뒤에 숫자는 몇번째 위치인지
-
-https://download.docker.com/linux/centos/docker-ce.repo
-
-
-[IPTABLES]
-iptables 
--t : target
--L : 현재포워딩 리스트 목록
-nat : Network
-
-[FTP - PORT 변경법]
-  vi /etc/vsftpd/vsftpd.conf 들어가서   
-  12라인 YES를 NO로 변경 (아이디 비밀번호 없이 접속하는걸 막는 코드)
-  125라인에 listen_port='원하는 포트 번호' 을 변경 (변경한 포트 번호로 FTP 포트번호가 변경됨)
+  Server 생성 -> server에 등록된 master사용자가 docker를 이용해서 이미지 생성 ->
+  Nginx , Tomcat , JDK , MYSQL , FTP , NODE.JS 를 다운로드 -> container에 다운받은 이미지를 설치
 
 
 
+  
+  
+  
 
 
-[Net-Mask]
-  -네트위크의 주소를 32bit 형태로 구성하는 연결 연산 주소
-
-  일반적으로 
-  255.0.0.0 - A
-  255.255.0.0 - B
-  255.255.255.0 - C
-  255.255.255.255 - D
-
-[NAT - 내부에서 사용하는 IP]
-  - NAS
-
-
-
-
-[운영체제 관련 정보]
-  - /boot => booting
-  -/usr => mysql,oracle,mariadb,ftp,ssh..각종 데몬을 설치 경로
-  -/var => 메일 로그기록 각종 로그기록이 저장 되는 경로
-  -/home => 웹 서비스를 제공하는 경로
-  -/etc => 각종 데몬의 환경설정 (start,stop,status,conf 제공)
-  -/swap => 처리메모리 영역
-  -root => 리눅스 최고관리자 이며, 모든 프로세서를 관리하는 관리자
-  -administrator => 윈도우서버 최고관리자
-
-[(기본서버)CentOS]  
-  -docker => 각 파티션으로 가상의 서버로 분활
-  1. DB서버 - Mysql,MariaDB,Oracle
-  2. WEB서버 - Apach,Nginx,Tomcat 
-  3. CDN서버 - FTP (이미지 전용서버)
+  -Nginx 다운로드
+      docker search nginx
+      docker pull nginx
+      root로 cd /var/lib/docker/overlay2/로 가서
+      ls -al으로 설치된 image확인
+      docker run --name nginxweb -d -p 80:80 nginx : 컨테이너 생성 및 가동
+      root로 systemctl stop httpd (nginx랑 apache랑 충돌)
+      docker ps : 현재 컨테이너에서 작동중인 리스트 출력
+      docker container ls : 현재 docker에 있는 container 확인
+      docker rename '변경할 이름' : 
+      docker ps -a : 현재 가동,정지중인 컨테이너 확인
+      docker container start : docker에 생성된 켄테이너를 실행
+      docker container stop 컨테이너id : docker에 해당 컨테이너를 정지
+      docker container run 컨테이너id : docker에 해당 켄테이너를 실행
+      docker container rm 컨테이너id : docker에 해당 컨테이너를 삭제(컨테이너 정지 후)
 
 
-ip 10.0.2.15
-서브넷 255.255.255.0
-라우트 10.0.2.2
-DNS 168.126.63.1   168.126.63.2
+    [불필요한 컨테이너 삭제]
+      docker ps -a 이후에 컨테이너id 값을 복사하여 docker rm 컨테이너id 입력시 삭제
 
 
-[Linux 명령어]
-su : SuperUser(root) root로 전환 
-ifconfig : 자신의 ip주소를 확인하는 명령어
-nslookup : 외부서버에 연결이 가능한지 확인하는 명령어
-pwd : 현재 디렉토리 경로
-cd : change directory 약어로 경로를 변경할 때 사용
-ls -al : 해당 경로에 파일 리스트를 확인 할때 사용하는 명령어
-useradd '추가할 유저명' : 유저 추가하기
-passwd '유저명' : 패스워드 설정
-ntsysv : 데몬관리 프로그램
-shift+; : vi에서 마무리하는 문법
-selinux : 보안 포트를 방화벽과 연계해서 사용되는 데몬
-who : 서버에 접속하고 있는 유저 확인
-kill -9 (난수) : 서버에서 그 유저를 추방
-free -m : 프로세스를 MB형식으로 보여줌
-top : 실시간으로 돌아가는 프로세스를 보여줌
-df : 디스크에 현재 사용 용량을 보여줌
-mysql_install_db --user=mysql : mysql 설치 후 딱 한번 실행 (초기화)
-systemctl enable () : 해당 프로세스 자동 실행
-mysqld_safe --skip-grant-tables & : 안전모드
+    [명령어]
+      docker login : docker hub에 로그인하여 있는 이미지를 다운로드 받을수있는 명령어 
+      systemctl status docker : docker status 확인하는 명령어
+      docker -v : docker 버전확인
+      docer version : 버전의 더 많은 내용의  확인
+      cd /var/lib/docker/overlay2/  : docker관련 패키지들이 저장되는 디렉토리
+      ls -al : 현재 디렉토리에 있는 파일 확인
+      docker images : 다운로드받은 각종 데몬 이미지 형상화 리스트를 확인 할 수 있음
+      docker pull 데몬명 : image를 다운받을수 있습니다. 단, 그냥 pull 사용시 최신버전을 다운받음
+      docker images : 현재 image를 확인할수 있음
+      docker rmi -f 이미지ID :다운받은 docker 이미지를 삭제할 때 사용함/이미지id는 docker images에 들어가면 확인 할수 있음
+  
 
 
-[vi편집기로 편집을 해서 설정 ]
-  i : 입력 
-  ESC : 새로운 명령어 입력
-  wq : write quick 저장하고 나가기 
-  q! : 저장하지 않고 나가기
+    -docker search '데몬' : 찾고자 하는 데몬을 찾을 수 있음 
+    -docker search nginx 
+    -docker search apache
+    -docker search mysql
+    -docker search java
+    -docker search node
+    -docker search react
+    -docker search postgresql
+
+    -docker search를 사용할때 퍼미션 에러가 날때는 (클라우드를 껐다가 다시 키면 다시 해줘야함)
+    -(퍼미션이 안풀려있을때 root가 해야하는것)
+    -cd /var/run/docker.socket 으로 디렉토리 변경
+    -(루트로 해야됨)ls -al docker.sock  (퍼미션 앞에 s는 바로가기)
+    -chmod 666
+
+    이후 mysql 접속할시 
+    -docker exec -it mysql /bin/bash : 배쉬 모드로(안전모드,개발자모드) 전환(여기 안에서만 mysql 접속할수 있음)
+
+  [클라우드 서버에서 DB 백업하는 방법]
+    docker exec -it 'DB이름' /usr/bin/maysqldump -u '유저' -p'비밀번호' 'db' > '백업할db명'
 
 
-vi /etc/selinux/config => 들어가서 disabled로 변경해야됨
+  [Nosql -postgersql]
+    docker search postgersql : 버전이 있는지 확인 맨위에 postgres를확인 이게 패키지임
+    docker pull postgres : postgresql패키지를 다운
+    docker images : 다운받았는지 확인
+    docker run -d -p 5432:5432 -e POSTGRES_PASSWRED="a1234" --name postgresql postgres
+    docker run -d -p 5432:5432 -e POSTGRES_PASSWORD="a1234" --name postgresql postgres
+    docker exec --user="root" -it postgersql "bash"
+    docker exec -it postgresql /bin/bash
+
+    psql -U postgres
+    select datname from pg_database : 전체 데이터베이스 리스트 출력
+    select nspname from pg_catalog.pg_namespace : DB삭제
+    create database shop : 데이터 베이스 만들기
+    \c shop : 데이터베이스 안으로 이동
+    select * from pg_tables : 테이블 확인
+    select * from pg_tables where schemaname='public' : 
+    create table product (idx int, product_nm varchar(200), product_code char(10)) 
+    insert into product values ('1','computer','a1234')
+    select * from product 
+    update product set product_nm='keyboard' where idx='1'
+    select * from product 
+    \q : exit랑 똑같음
 
 
+  [docker - 운영체제 및 프로젝트 관련 데몬 절체 설치]
+    docker search centos : centos 버전 확인
+    docker pull centos:7 :centos 설치
+    docker run --privileged --name 프로젝트이름 -d centos:7 /sbin/init : 운영체제 시작  --privileeged(네트워크 활성화)
+    docker exec -it project1 /bin/bash : 배쉬로 접속
+    uname -a : bash로 접속했는지 확인
+    cat /etc/redhat-release : 운영체제 버전 확인
+    cd /home/ : 디렉토리 이동
 
-mkdir : 디렉토리 생성
-wget : 외부 URL을 이용하여 파일 및 이미지, 동영상.. 서버에 직접 다운로드 받을 수 있습니다.
-rm -drf: 파일,디렉토리 삭제
-mv : 파일명 변경
-yum update : 리눅스 전반적인 패키지를 모두 업데이트
-
-vi text.txt 
--메모장 생성
-cat text.txt
-메모장 내용 확인
-
-[sshd]
--외부에서 서버로 접속할 수 있는 프로토콜
--service sshd stop (외부접속 차단)
--service sshd start (외부접속 허용)
--service sshd restart (재가동)
+    cd /etc/yum.repo.d/ : 이동
+    ls -al 로 리스트 확인 후 설치 되어있던거 삭제
+    rm - drf CentOS*
 
 
+    vi Daum.repo.txt 에 
+    없을 경우 인터넷에 yum centos repo를 쳐서 가져오기
+  [base]
+    name=CentOS-$releasever - Base
+    baseurl=http://ftp.daum.net/centos/7/os/$basearch/
+    gpgcheck=1
+    gpgkey=http://ftp.daum.net/centos/RPM-GPG-KEY-CentOS-7
 
-[sshd-환경설정]
--22포트를 오픈시켜서 외부접속 허용
-vi /etc/ssh/ssh_config
-vi /etc/ssh/sshd_config
-에서 포트번호를 #을 지움
+  [updates]
+  name=CentOS-$releasever - Updates
+    baseurl=http://ftp.daum.net/centos/7/updates/$basearch/
+    gpgcheck=1
+    gpgkey=http://ftp.daum.net/centos/RPM-GPG-KEY-CentOS-7
 
-[퍼미션]
-r : 읽기(4)
-w : 쓰기(2)
-x : 실행(1)
-rwx---rwx:707
+  [extras]
+    name=CentOS-$releasever - Extras
+    baseurl=http://ftp.daum.net/centos/7/extras/$basearch/
+    gpgcheck=1
+    gpgkey=http://ftp.daum.net/centos/RPM-GPG-KEY-CentOS-7
+
+  [centosplus]
+    name=CentOS-$releasever - Plus
+    baseurl=http://ftp.daum.net/centos/7/centosplus/$basearch/
+    gpgcheck=1
+    gpgkey=http://ftp.daum.net/centos/RPM-GPG-KEY-CentOS-7
+
+    넣고 나와서 
+
+    yum update : OS 업데이트 
+
+    (필수로 필요한 것)
+    yum install wget : 인터넷에 있는거 다운받을떄 사용
+    yum install yum-utils : yum 을 사용할려면 기본적으로 필요한
+    yum install net-tools : 네트워크 툴 네트워크를 사용할려면 기본적으로 필요함 설치 후 ifconfig 사용가능
+    yum install bind-utils : 네트워크가 되는지 확인할려는 nslookup을 사용할수 있음 
+    yum install ntsysv : 서버가동시 자동으로 설정하는 데몬
+    yum install openssh-* : 외부접속 ssh 데몬 -최초서버에 root패스워드가 없음
+    passwd => root패스워드 설정 이후에 외부에서 접속할수 있음 
+    yum으로 설치하기 때문에 java는 rpm으로 다운받아야됨 
+    yum install vsftpd : ftp를 사용하기 위한 데몬
+
+    cd /home/ 으로 가서
+    mkdir down : 으로 디렉토리 만들고
+    cd down/ : 으로 들어가서
+    wget  https://download.oracle.com/java/17/archive/jdk-17.0.11_linux-x64_bin.rpm : 자바 다운받고
+    ls -al : 로 자바 다운받았는지 확인 후
+
+    rpm -ivh jdk-17.0.11_linux-x64_bin.rpm :으로 자바 설치 
+    rpm -ivh 설치 파일명 
+
+    java -version : 으로 다운받은 자바 버전 확인 
+    docker login :으로 로그인 후 
+    /home/master/.docker/config.json : 로그인 정보가 보관됨
+    container를 image화 시켜서 dockerhub에 등록할 수 있음
+    docker commit -a "이미지 작성자이름" -m "메모내용" 컨테이너이름 dockerhub레포지토리이름:latest(버전)
+    docker images : 생성된 이미지 확인
+    일반사용자(예: admin사용자 일 경우 직접 config.json을 가지고 있는 일반사용자)가 직접 이미지를 
+    dockerhub repositories를 동일하게 생성을 해줌
+    docker tag 이미지이름:버전 dockerhub 아이디/이미지이름 :버전
+    ex) docker tag server_centos7:latest unnown1/server_contos7:latest
+    docker push unnown1/server_contos7 : 해당 용량만큼 dockerhub에 업로드(이미지)
+
+  [docker os 다운로드 받을때 ]
+    docker pull unnown1/server_centos7:latest : 치면 다운됨
+    docker run --privileged --name project2 -d unnown1/server_centos7 /sbin/init : 컨터에너 생성
 
 
-[root 패스워드 - loss]
-  systemctl stop mariadb  : mariadb 정지
-  mysqld_safe --skip-grant-tables & : 안전모드 실행
-  mysql -u root -p : 비밀번호 없이 로그인
-  update user set password=password('a1234') where user='root' : 비밀번호 변경
-  mysqladmin -u root -p shutdown : 안전모드 종료
-  systemctl start mariadb : mariadb 실행
-  mysql -u root -p : 변경한 실제 패스워드로 로그인
-
-[window 전용 - microsoft]
-wsl : window system linux
-virtualbox : 윈도우 mac 둘다 호완 
+  [Cloud - project3] 
+    -JDK17
+    -ssh : 7022
+    -ftp : 7021
 
 
+  [컨테이너 생성시 및 PORT를 오픈하여 적용하는 방식]
+    docker run -p 본서버IP:7022:22 -p 본서버IP:7021:21 --privileged --name project3 -d 이미지이름 /sbin/init
 
+
+  [컨테이너에 있는 가상의 서버에서 FTP ] - Active, Passive(X)
+    Active : 가상의 포트 통신으로 접속할 수 있도록 연결하는 방식
+    Passive : 기본 포트가 작동이 되면서 포트 포워딩이 이루어진 상황에서 작동 
+
+  [포트 포워딩 수정]
+    컨테이너 이름 : d842e4b90311
+    cd /var/lib/docker/containers/
+    ls -al
+    cd 컨테이너이름/
+    vi config.v2.json
+    Tty 앞에 넣기 
+    "ExposedPorts":{"22/tcp":{},"3306/tcp":{},"80/tcp":{},"8080/tcp":{}},
+
+    "Ports": 찾아서 밑에 코드 넣기
+    {"22/tcp":[{"HostIp":"192.168.56.3","HostPort":"10022"}],"3306/tcp":[{"HostIp":"192.168.56.3","HostPort":"10033"}],"80/tcp":[{"HostIp":"192.168.56.3","HostPort":"10080"}],"8080/tcp":[{"HostIp":"192.168.56.3","HostPort":"10088"}]}
+    vi hostconfig.json 
+    "PortsBindings"에 넣기
+    "22/tcp":[{"HostIp":"192.168.56.3","HostPort":"10022"}],"3306/tcp":[{"HostIp":"192.168.56.3","HostPort":"10033"}],"80/tcp":[{"HostIp":"192.168.56.3","HostPort":"10080"}],"8080/tcp":[{"HostIp":"192.168.56.3","HostPort":"10088"}]
+
+
+  [포트]
+   FTP(21)
+   SFTP/SSH(22)
+   Telnet(23)
+   SMTP(25)
+   HTTP(80)
+   POP3(110)
+   IMAP(143)
+   TOMCAT(8080)
+   NNTP(119)
+   LDAP(389)
+    MySQL&MariaDB(3306)
+    MsSQL(1433)
+   Oracle(1521)
+    PostgreSQL(5432)
+    MongDB(27017)
 
 ======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
@@ -844,6 +1148,8 @@ update admin set spass='000000000000004f00000000000000c200000000000000b500000000
 
 http://mekeyace.dothome.co.kr/shop_info.pdf
 http://mekeyace.dothome.co.kr/shop_source.zip
+http://mekeyace.dothome.co.kr/mallpage.zip
+
 
 
   alter table admin modify master int(1) null default '0';
@@ -877,7 +1183,7 @@ http://mekeyace.dothome.co.kr/shop_source.zip
 | hope_day            | enum('Y','N') | NO   |     | N       |
 
 
-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
+
 
 
 create table siteinfo(
@@ -925,7 +1231,7 @@ create table category(
 );
 
 
-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
+
 
 
 
@@ -949,4 +1255,100 @@ primary key(pidx),
 unique a(pcode)
 );
 
-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
+
+
+create table member(
+  midx int(3) not null auto_increment,
+  mname char(30) not null,
+  mid char(50) not null,
+  mtel char(11) not null,
+  memail char(30) not null,
+  emailuse enum('Y','N') not null default 'Y',
+  smsuse enum('Y','N') not null default 'Y',
+  mdate timestamp not null default current_timestamp,
+  mstat enum('정상','정지') not null default '정상',
+  primary key(midx)
+);
+
+insert into member values('0','한석봉','kansbong','01012345678','hansbong@hanmail.net','Y','N',now(),'정상');
+
+create table terms(  
+  tidx int(1) not null,
+  terms text null,
+  personal_information text null,
+  unique a(tidx)
+);
+
+"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"
+
+
+create table notice(
+  nidx int(5) unsigned not null auto_increment,
+  ntitle varchar(150) not null,
+  nwriter char(30) not null,
+  nfile text null,
+  ntext text not null,
+  nuse enum('Y','N') not null default 'Y',
+  ndate timestamp not null default current_timestamp,
+  primary key(nidx)
+);
+
+alter table notice modify nview nview int(8) unsigned null;
+
+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
+
+
+========================================================================================================================================================================================================================
+[STS4-Spring_Boot]
+  [Spring]-POJO프로그램(순수 Java를 통해서 생성한 객체 형태의 구조)
+    -AOP
+    -PSA (추상화) -> MySQL,Oracle,MariaDB ->  config, mapper, dbconfig
+    -Ioc/DI (의존성 주입)
+  [Spring-Boot] -> srping upgrade (Database)
+    -PSA => sqltemplate
+    -POM.xml -> 기본으로 spring project 생성시 instance에서 관리
+    -spring reactive web
+    -spring web service -> SOAP 기반 (Restful Service 제작시)
+  (처음 설치할때 셋팅방법)
+    -window/preferences/encoding utf-8로설정 및 automatic update 풀기 
+    -help/about STS4 들어가서 eclips버젼으로 현재 STS4 버젼 확인하기
+    -help/install new software/ Latest Eclipse Release - https://download.eclipse.org/releases/현재STS4버젼
+    후 및에 3개 체크해서 다운로드 받기
+    -Application Debelopment Frameworks
+    -Database Debelopment
+    -Web, XML, Java EE and OSGI Enterprixe Debelopment
+  -lombok은 설정할때 체크했다고 해서 사용할수 있는게 아니라 직접적으로 설치까지 해줘야 사용가능함
+
+  프로젝트 우클릭시 spring/add starters 누르면 application.properties가 초기화됨
+
+  jstl, thymeleaf
+
+
+  [jstl]
+  STS 2버전에서까지는 jstl을 설치하여 사용할수 있지만
+  STS 3버전부터는 jstl을 설치못하므로 jakarta jstl을 다운받아 사용해야됨
+
+  [glassfish 설치방법]
+    javaserver pages taglib으로 복사해서 pom.xml에 집어넣고 
+    버전을 지운다음 (artifactID)를 javax에서 jakarta로 바꿔주면 버전이 바뀜
+  [embed 설치방버]
+   maven repository에 apache embed를 검색해서 다운로드 받고 서버 재실행
+
+   mapper를 만들었을때 에러가 나면 window/preferences/XML(Wild Web Developer에서 Download exeternal 을 체크)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
