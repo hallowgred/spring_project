@@ -17,6 +17,8 @@
     <link rel="icon" href="./img/logo.png" sizes="64x64">
     <link rel="icon" href="./img/logo.png" sizes="32x32">
     <link rel="icon" href="./img/logo.png" sizes="16x16">
+    <link rel="stylesheet" href="./css/ckeditor.css?v=1">
+		<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css">
 </head>
 <body>
 <form id="notice_write_frm" enctype="multipart/form-data">
@@ -51,13 +53,19 @@
 <ul class="ul_height">
     <li>공지내용</li>
     <li>
-        <textarea class="notice_input3" name="ntext"  placeholder="공지내용을 입력하세요!"></textarea>
+    <div class="main-container">
+				<div class="editor-container editor-container_classic-editor editor-container_include-style" id="editor-container">
+					<div class="editor-container__editor">
+					 <textarea class="notice_input3" name="ntext"  id="editor" placeholder="공지내용을 입력하세요!" cols="50" rows="30"></textarea>
+					 </div>
+				</div>
+			</div>
     </li>
 </ul>
 </div>
 <div class="board_btn">
-    <button class="border_del" onclick="go_list()">공지목록</button>
-    <button class="border_add" onclick="go_write()">공지등록</button>
+    <button class="border_del" id="go_list">공지목록</button>
+    <button class="border_add" id="go_write">공지등록</button>
 </div>
 </section>
 </main>
@@ -69,5 +77,14 @@
 </footer>
 </body>
 <% Date d=new Date(); %>
-<script src="./js/notice_write.js?v=<%=d%>"></script>
+	<script type="importmap">
+		{
+			"imports": {
+				"ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.js",
+				"ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.0.0/"
+			}
+		}
+		</script>
+	
+<script type="module" src="./js/notice_write.js?v=<%=d%>"></script>
 </html>

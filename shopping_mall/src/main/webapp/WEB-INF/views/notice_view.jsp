@@ -28,7 +28,7 @@
 <input type="hidden" value="${notice_one_list.get(0)}" name="nidx">
 <ul>
     <li>공지사항 제목</li>
-    <li><input type="text" value="${notice_one_list.get(1)}"  name="ntitle" style="border:none;"> * 제목 클릭시 수정가능
+    <li><input type="text" value="${notice_one_list.get(1)}"  name="ntitle" style="border:none;" readonly="readonly"> 
     </li>
 </ul>
 <ul>
@@ -40,13 +40,13 @@
 <ul>
     <li>첨부파일</li>
     <li>
-    <input type="text" value="${notice_one_list.get(3)}" readonly="readonly" name="files" style="border:none;">
+    <input type="text" value="${notice_one_list.get(3).split("-")[0]}" readonly="readonly" name="files" style="border:none;">
     </li>
 </ul>
 <ul class="ul_height">
     <li>공지내용</li>
     <li>
-        <div class="notice_input3" style="overflow-y: auto;"><textarea style="width:764px;height: 393px;border:none;" name="ntext" >${notice_one_list.get(4)}</textarea></div>
+        <div class="notice_input3" style="overflow-y: auto;">${notice_one_list.get(4)}</div>
     </li>
 </ul>
 </div>

@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 public class shopping_member_dao {
 	int midx;
-	String mname,mid,mtel,memail,emailuse,smsuse,mdate,mstat;
+	String mname,mid,mtel,memail,emailuse,smsuse,mdate,mstat,mpass;
 }
