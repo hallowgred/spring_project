@@ -1,1 +1,9 @@
 /.metadata/
+
+/shopping_mall/target/
+
+/shopping_mall/src/main/java/pay
+/shopping_mall/src/main/webapp/pay/
+
+/shopping_mall/src/main/webapp/WEB-INF/lib/INIpaySample_v1.3.jar
+/shopping_mall/src/main/webapp/WEB-INF/views/pay/pay*

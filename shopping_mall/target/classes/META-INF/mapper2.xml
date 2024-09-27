@@ -45,7 +45,9 @@
 	<select id="sel_notice_files" resultType="noticedao">
 	select * from notice where nidx=#{nidx}
 	</select>
-
+	<select id="join_idck" resultType="String">
+	select mid from member where mid=#{mid} 
+	</select>
 	
 	
 	<insert id="insert_notice">

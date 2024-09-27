@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,8 +40,8 @@
     </span>
     <ul class="join_ul">
     <li>※ 아이디</li>
-    <li>
-    <input type="text" class="join_in1" name="mid"> <input type="button" value="중복확인" class="join_btn1">
+    <li id="id">
+    <input type="text" class="join_in1" name="mid" id="mid"> <input type="button" id="join_idck" value="중복확인" class="join_btn1">
     </li>
     <li>※ 비밀번호</li>
     <li>
@@ -56,7 +57,7 @@
     </li>
     <li>※ 이메일</li>
     <li>
-    <input type="text" class="join_in1"> <input type="button" value="이메일 인증" class="join_btn1" name="memail"> ※ 입력하신 이메일을 확인해 주세요.
+    <input type="text" class="join_in1" id="memail_text"> <input type="button" value="이메일 인증" class="join_btn1" name="memail" id="memail"> ※ 입력하신 이메일을 확인해 주세요.
     </li>
     <li>※ 인증번호</li>
     <li>
@@ -117,4 +118,6 @@ Copyright © 도메인명 All Rights Reserved.
     </aside>
 </footer>
   </body>
+  <%Date d= new Date(); %>
+  <script src="./js/join.js?v=<%=d%>"></script>
 </html>
