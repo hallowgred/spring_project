@@ -82,6 +82,6 @@
     </div>
 </footer>
 </body>
-<%Date d = new Date(); %>
+<%Date d = new Date(); %><!-- fdasf -->
 <script src="./js/shop_member_list.js?v=<%=d%>"></script>
 </html>
