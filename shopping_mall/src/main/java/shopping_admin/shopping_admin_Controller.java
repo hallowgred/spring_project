@@ -31,9 +31,14 @@ public class shopping_admin_Controller {
 	
 	PrintWriter pw = null;
 	
-	//공지사항 수정페이지
 	@PostMapping("/notice_modify")
-	public void notice_modify(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_notice_dao dao) {
+	public void notice_modify(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) {
+		
+	}
+	
+	//공지사항 수정페이지
+	@PostMapping("/notice_modifyok")
+	public void notice_modifyok(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_notice_dao dao) {
 		res.setContentType("text/html;charset=utf-8");
 		String re="";
 		try {
@@ -234,6 +239,7 @@ public class shopping_admin_Controller {
 	@PostMapping("/change_stat")
 	public String change_stat(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_member_dao dao) throws Exception{
 		String re="";
+		System.out.println(dao.getMstat());
 		res.setContentType("text/html;charset=utf-8");
 		try {
 		this.pw=res.getWriter();

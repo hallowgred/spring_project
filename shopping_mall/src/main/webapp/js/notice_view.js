@@ -1,5 +1,6 @@
 document.querySelector("#notice_list").addEventListener("click",function(){
-	location.href="./notice_list";
+	notice_one_frm.action="./notice_list";
+	notice_one_frm.submit();
 });
 
 

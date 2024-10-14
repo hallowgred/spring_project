@@ -48,6 +48,10 @@
 	<select id="join_idck" resultType="String">
 	select mid from member where mid=#{mid} 
 	</select>
+	<select id="select_login" resultType="joindto">
+    SELECT * FROM member WHERE mid = #{mid} AND mpass = #{mpass}
+</select>
+
 	
 	
 	<insert id="insert_notice">
@@ -68,6 +72,9 @@
 	</insert>
 	<insert id="insert_terms">
 	insert into terms (tidx,terms,personal_information) values ('1',#{terms},#{personal_information})
+	</insert>
+	<insert id="insert_member">
+	insert into member (midx,mname,mid,mtel,mpass,memail,emailuse,smsuse,mdate,mstat) values (0,#{mname},#{mid},#{mtel},#{mpass},#{memail},#{emailuse},#{smsuse},current_timestamp,'정상')
 	</insert>
 	
 	

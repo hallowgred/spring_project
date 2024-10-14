@@ -11,5 +11,6 @@
 <typeAlias alias="memberdao" type="shopping_admin.shopping_member_dao"/>
 <typeAlias alias="termsdao" type="shopping_admin.shopping_terms_dao"/>
 <typeAlias alias="noticedao" type="shopping_admin.shopping_notice_dao"/>
+<typeAlias alias="joindto" type="shopping.join_DTO"/>
 </typeAliases>
 </configuration>

@@ -1,10 +1,13 @@
+<%@page import="java.util.Date"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <title>Shop Bag</title>
     <meta charset="utf-8" />
-    <link href="./index.css" rel="stylesheet" />
-    <link href="./subpage.css" rel="stylesheet" />
+    <link href="./css/index.css" rel="stylesheet" />
+    <link href="./css/subpage.css" rel="stylesheet" />
   </head>
 
   <body>
@@ -28,25 +31,25 @@
         <div class="loginview">
           <span class="member_l"></span>
           <span class="login">
-          <form>   
+          <form id="login_form">   
           <table border="0" cellpadding="0" cellspacing="0" class="table_login">
           <tr>
           <td>
-          <input type="text" placeholder="아이디를 입력해주세요" class="id">
+          <input type="text" placeholder="아이디를 입력해주세요" class="id" id="mid" name="mid">
           </td>
           <td rowspan="2">
-          <input type="submit" value="LOGIN" class="btn1">
+          <input type="submit" value="LOGIN" class="btn1" id="login">
           </td>
           </tr>
           <tr>
           <td>
-          <input type="password" placeholder="패스워드를 입력해주세요" class="id">
+          <input type="password" placeholder="패스워드를 입력해주세요" class="id" id="mpass" name="mpass">
           </td>
           </tr>
           </table>
               
           <div class="check1">
-          <input type="checkbox" id="l"> <label for="l" class="label_login">아이디 저장</label>
+          <input type="checkbox" id="idsave" name="saveid"> <label for="l" class="label_login">아이디 저장</label>
           </div>
           </form>
           <ul class="btns_login">
@@ -116,4 +119,6 @@ Copyright © 도메인명 All Rights Reserved.
     </aside>
 </footer>
   </body>
+  <%Date d = new Date(); %>
+  <script src="./js/login.js?v=<%=d%>"></script>
 </html>

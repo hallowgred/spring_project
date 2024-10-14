@@ -13,6 +13,7 @@
   </head>
 
   <body>
+  <form id="join_form">
     <div class="navbar">
       <a href="#" id="logo">
         <img src="images/logo.jpg" width="149">
@@ -42,6 +43,7 @@
     <li>※ 아이디</li>
     <li id="id">
     <input type="text" class="join_in1" name="mid" id="mid"> <input type="button" id="join_idck" value="중복확인" class="join_btn1">
+	<input type="text" value="" id="idck" style=" border: none;" readonly="readonly">
     </li>
     <li>※ 비밀번호</li>
     <li>
@@ -53,15 +55,16 @@
     </li>
     <li>※ 이름</li>
     <li>
-    <input type="password" class="join_in1" name="mname">
+    <input type="text" class="join_in1" name="mname">
     </li>
     <li>※ 이메일</li>
     <li>
-    <input type="text" class="join_in1" id="memail_text"> <input type="button" value="이메일 인증" class="join_btn1" name="memail" id="memail"> ※ 입력하신 이메일을 확인해 주세요.
+    <input type="text" class="join_in1" id="memail_text" name="memail"> <input type="button" value="이메일 인증" class="join_btn1"  id="memail">
+    <input type="text" id="emailok" style="border:none;" value="" readonly="readonly">
     </li>
     <li>※ 인증번호</li>
     <li>
-    <input type="text" class="join_in1 join_in3" maxlength="8"> ※ 8자리 인증번호를 입력하세요.
+    <input type="text" class="join_in1 join_in3" maxlength="8" id="email_ck"> ※ 8자리 인증번호를 입력하세요.
     </li>
     <li>※ 전화번호</li>
     <li>
@@ -69,11 +72,11 @@
     </li>
     <li>※ 이벤트 메일 수신</li>
     <li>
-    <label><input type="checkbox" class="join_ck1" name="emailuse"> 정보/이벤트 메일 수신에 동의합니다.</label>
+    <label><input type="checkbox" class="join_ck1" name="emailuse1"> 정보/이벤트 메일 수신에 동의합니다.</label>
     </li>
     <li>※ 이벤트 SMS 수신</li>
     <li>
-    <label><input type="checkbox" class="join_ck1" name="smsuse"> 정보/이벤트 SMS 수신에 동의합니다.</label>
+    <label><input type="checkbox" class="join_ck1" name="smsuse1"> 정보/이벤트 SMS 수신에 동의합니다.</label>
     </li>
     </ul>
     <div class="btn_center_box">
@@ -117,6 +120,7 @@ Copyright © 도메인명 All Rights Reserved.
         </div>
     </aside>
 </footer>
+</form>
   </body>
   <%Date d= new Date(); %>
   <script src="./js/join.js?v=<%=d%>"></script>

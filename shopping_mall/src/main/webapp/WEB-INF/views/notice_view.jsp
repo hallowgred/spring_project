@@ -1,7 +1,7 @@
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="./top.jsp" %>
+<%@ include file="./top.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,6 +17,8 @@
     <link rel="icon" href="./img/logo.png" sizes="64x64">
     <link rel="icon" href="./img/logo.png" sizes="32x32">
     <link rel="icon" href="./img/logo.png" sizes="16x16">
+    <link rel="stylesheet" href="./css/ckeditor.css?v=1">
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css">
 </head>
 <body>
 <form id="notice_one_frm">
@@ -46,7 +48,7 @@
 <ul class="ul_height">
     <li>공지내용</li>
     <li>
-        <div class="notice_input3" style="overflow-y: auto;">${notice_one_list.get(4)}</div>
+        <div class="notice_input3" style="overflow-y: auto;" id="editor">${notice_one_list.get(4)}</div>
     </li>
 </ul>
 </div>
@@ -63,7 +65,17 @@
         Copyright ⓒ 2024 shopbag All rights reserved.
     </div>
 </footer>
-</body>
-<% Date d=new Date(); %>
+<% Date d = new Date(); %>
+<script src="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5-build-classic/ckeditor.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // CKEditor 초기화
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
 <script src="./js/notice_view.js?v=<%=d%>"></script>
 </html>
