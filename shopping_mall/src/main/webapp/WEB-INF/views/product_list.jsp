@@ -23,14 +23,21 @@
 <section>
 <p>상품관리 페이지</p>
 <div class="subpage_view">
-    <span>등록된 상품 0건</span>
+  <span>등록된 상품 
+    <cr:if test="${not empty product_list}">
+        ${product_list.size()}건
+    </cr:if>
+    <cr:if test="${empty product_list}">
+        0건
+    </cr:if>
+</span>
     <span>
-        <form>
-        <select class="p_select1">
-            <option>상품명</option>
-            <option>상품코드</option>
+        <form id="searchProduct">
+        <select class="p_select1" name="type">
+            <option value="name">상품명</option>
+            <option value="code">상품코드</option>
         </select>
-        <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
+        <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요" name="keyword">
         <input type="submit" value="검색" title="상품검색" class="p_submit">
         </form>
     </span>
@@ -100,5 +107,5 @@
     </div>
 </footer>
 </body>
-<script src="./js/product_list.js?v=2"></script>
+<script src="./js/product_list.js?v=3"></script>
 </html>

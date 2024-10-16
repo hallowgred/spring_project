@@ -55,7 +55,7 @@
         <li>${list_member.mstat}</li>
         <li>
         	<input type="hidden" name="midx" value="${list_member.midx}">
-        	<input type="hidden" name="mstat" value="" id="mstat_${list_member.midx}">
+        	<input type="hidden" name="mstat1" value="" id="mstat">
             <input type="button" value="정지"  class="new_addbtn1" title="정지" onclick="stat_change(this.value, '${list_member.mname}', '${list_member.midx}')">
             <input type="button" value="해제"  class="new_addbtn2" title="해제" onclick="stat_change(this.value, '${list_member.mname}', '${list_member.midx}')">
         </li>
@@ -82,6 +82,6 @@
     </div>
 </footer>
 </body>
-<%Date d = new Date(); %><!-- fdasf -->
+<%Date d = new Date(); %>
 <script src="./js/shop_member_list.js?v=<%=d%>"></script>
 </html>

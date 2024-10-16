@@ -51,7 +51,7 @@
     </li>
     <li>※ 비밀번호 확인</li>
     <li>
-    <input type="password" class="join_in1 join_in2"> ※ 동일한 패스워드를 입력하세요.
+    <input type="password" class="join_in1 join_in2" id="mpass1"> ※ 동일한 패스워드를 입력하세요.
     </li>
     <li>※ 이름</li>
     <li>

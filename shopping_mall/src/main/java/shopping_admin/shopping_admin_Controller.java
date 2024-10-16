@@ -32,8 +32,11 @@ public class shopping_admin_Controller {
 	PrintWriter pw = null;
 	
 	@PostMapping("/notice_modify")
-	public void notice_modify(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) {
-		
+	public void notice_modify(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res) throws Exception{
+		this.pw=res.getWriter();
+		res.setContentType("text/html;charset=utf-8");
+		this.pw.print("<script>alert('수정할 수 없습니다.');history.back();</script>");
+		this.pw.close();
 	}
 	
 	//공지사항 수정페이지
@@ -237,9 +240,9 @@ public class shopping_admin_Controller {
 	
 	//회원 상태 변경 파트
 	@PostMapping("/change_stat")
-	public String change_stat(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_member_dao dao) throws Exception{
+	public String change_stat(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,shopping_member_dao dao,@RequestParam(name = "mstat1") String mstat) throws Exception{
 		String re="";
-		System.out.println(dao.getMstat());
+		dao.setMstat(mstat.split(",")[0]);
 		res.setContentType("text/html;charset=utf-8");
 		try {
 		this.pw=res.getWriter();
@@ -301,7 +304,7 @@ public class shopping_admin_Controller {
 	
 	//상품 리스트 출력
 	@RequestMapping("/product_list")
-	public String product_list(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,Model m) throws Exception{
+	public String product_list(@SessionAttribute(name = "list",required = false) String list,HttpServletResponse res,Model m,@RequestParam(name = "keyword",required = false) String keyword,@RequestParam(name = "type",required = false) String type) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		try {
 		if(list==null) {
@@ -309,9 +312,14 @@ public class shopping_admin_Controller {
 		this.pw.print("<script>alert('올바른 접근이 아닙니다. 로그인 이후 이용해주세요!');location.href='./admin';</script>");
 		this.pw.close();
 		}else {
+			if(!"".equals(keyword)) {
+				List<Object> arr= sm.searchProduct(type, keyword);
+				m.addAttribute("product_list",arr);
+			}else {
 			List<Object> arr=sm.productlist();
 			if(arr!=null) {
 				m.addAttribute("product_list",arr);				
+			}
 			}
 		}
 		}catch(Exception e) {

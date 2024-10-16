@@ -1,6 +1,7 @@
 package shopping;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -12,6 +13,18 @@ public class shopping_Service {
 
 	@Resource(name = "template2")
 	private SqlSessionTemplate tm2;
+
+	public footerEntity getFooter(){
+		return tm2.selectOne("shopping.getFooter");
+	}
+	
+	public List<productEntity>getproduct(){
+		return tm2.selectList("shopping.getProduct");
+	}
+	
+	public List<Object> getCategory(){
+		return tm2.selectList("shopping.getCategory");
+	}
 	
 	public join_DTO login(loginEntity ett) {
 	    return tm2.selectOne("shopping.select_login", ett);

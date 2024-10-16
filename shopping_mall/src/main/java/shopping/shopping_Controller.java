@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +36,8 @@ public class shopping_Controller {
 	@Resource(name =  "shopping_module")
 	private shopping_module sm;
 	
+
+	
 	@PostMapping("/loginok")
 	public void loginok(@RequestParam(required = false) String saveid, loginEntity ett, HttpServletResponse res) throws Exception {
 	    res.setContentType("text/html;charset=utf-8");
@@ -41,16 +45,23 @@ public class shopping_Controller {
 	    this.pw = res.getWriter();
 	    if (result != null) {
 	    	if(result.getMstat().equals("정상")) {
-	        this.pw.print("<script>alert('로그인 되셨습니다.');</script>");
+	        this.pw.print("<script>alert('로그인 되셨습니다.');location.href='./main'</script>");
 	    	}else {
-	    		this.pw.print("<script>alert('해당 고객님은 현재 계정이 정지된 상황 입니다. 고객센터에 문의하세요');</script>");
+	    		this.pw.print("<script>alert('해당 고객님은 현재 계정이 정지된 상황 입니다. 고객센터에 문의하세요');history.back();</script>");
 	    	}
 	    } else {
-	        this.pw.print("<script>alert('로그인 실패.');</script>");
+	        this.pw.print("<script>alert('아이디와 비밀번호를 확인해주세요.');history.back();</script>");
 	    }
 	    this.pw.close();
 	}
 
+	@GetMapping("/main")
+	public String main(Model m) {
+		m.addAttribute("getCategory",ss.getCategory());
+		m.addAttribute("getFooter",ss.getFooter());
+		m.addAttribute("getProduct",ss.getproduct());
+		return null;
+	}
 
 	
 	@GetMapping("/login")
@@ -59,28 +70,58 @@ public class shopping_Controller {
 	}
 	
 	@PostMapping("/joinok")
-	public String joinok(@RequestParam String emailuse1,@RequestParam String smsuse1, join_DTO dto,HttpServletResponse res) throws Exception{
-		res.setContentType("text/html;charset=utf-8");
-		if(emailuse1.equals("on")) {
-			dto.setEmailuse("Y");
-		}else {
-			dto.setEmailuse("N");
-		}
-		if(smsuse1.equals("on")) {
-			dto.setSmsuse("Y");
-		}else {
-			dto.setSmsuse("N");
-		}
-		int result = ss.joinMember(dto);
-		this.pw=res.getWriter();
-		if(result==1) {
-			this.pw.print("<script>alert('정상적으로 회원가입 되셨습니다.');location.href='./login';</script>");
-		}else {
-			this.pw.print("<script>alert('회원가입에 실패하였습니다. 잠시 후 다시 시도해주세요.');history.back();</script>");
-		}
-		this.pw.close();
-		return null;
+	public String joinok(@RequestParam(required = false) String emailuse1,
+	                     @RequestParam(required = false) String smsuse1, 
+	                     join_DTO dto, 
+	                     HttpServletResponse res) throws Exception {
+	    
+	    res.setContentType("text/html;charset=utf-8");
+
+	    // 필수 입력값 유효성 검사
+	    if (dto.getMid() == null || dto.getMid().isEmpty()) {
+	        this.pw = res.getWriter();
+	        this.pw.print("<script>alert('아이디를 입력해 주세요.');history.back();</script>");
+	        this.pw.close();
+	        return null;
+	    }
+
+	    if (dto.getMpass() == null || dto.getMpass().isEmpty()) {
+	        this.pw = res.getWriter();
+	        this.pw.print("<script>alert('비밀번호를 입력해 주세요.');history.back();</script>");
+	        this.pw.close();
+	        return null;
+	    }
+
+	    // 이메일 수신 동의 처리
+	    dto.setEmailuse("on".equals(emailuse1) ? "Y" : "N");
+
+	    // SMS 수신 동의 처리
+	    dto.setSmsuse("on".equals(smsuse1) ? "Y" : "N");
+
+	    try {
+	        // 회원가입 처리
+	        int result = ss.joinMember(dto);
+	        this.pw = res.getWriter();
+
+	        // 결과에 따른 메시지 처리
+	        if (result == 1) {
+	            this.pw.print("<script>alert('정상적으로 회원가입 되셨습니다.');location.href='./login';</script>");
+	        } else {
+	            this.pw.print("<script>alert('회원가입에 실패하였습니다. 잠시 후 다시 시도해주세요.');history.back();</script>");
+	        }
+	    } catch (DuplicateKeyException e) {
+	        this.pw = res.getWriter();
+	        this.pw.print("<script>alert('이 전화번호는 이미 등록되어 있습니다.');history.back();</script>");
+	    } catch (Exception e) {
+	        this.pw = res.getWriter();
+	        this.pw.print("<script>alert('서버 오류가 발생했습니다.');history.back();</script>");
+	    } finally {
+	        this.pw.close();
+	    }
+	    return null;
 	}
+
+
 	
 	
 	@PostMapping("/email_cc")

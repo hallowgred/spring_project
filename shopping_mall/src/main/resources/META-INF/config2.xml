@@ -12,5 +12,7 @@
 <typeAlias alias="termsdao" type="shopping_admin.shopping_terms_dao"/>
 <typeAlias alias="noticedao" type="shopping_admin.shopping_notice_dao"/>
 <typeAlias alias="joindto" type="shopping.join_DTO"/>
+<typeAlias alias="footerEntity" type="shopping.footerEntity"/>
+<typeAlias alias="productEntity" type="shopping.productEntity"/>
 </typeAliases>
 </configuration>

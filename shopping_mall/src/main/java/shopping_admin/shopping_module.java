@@ -33,6 +33,16 @@ public class shopping_module {
 		return tm2.update("shopping.modify_notice",dao);
 	}
 	
+	public List<Object> searchProduct(String type,String keyword){
+		List<Object> result=new ArrayList<Object>();
+		if(type=="code") {
+			result=tm2.selectList("shopping.searchPcode",keyword);
+		}else {
+			result=tm2.selectList("shopping.searchName",keyword);
+		}
+		return result;
+	}
+	
 	//공지사항 단일 페이지 출력
 	public ArrayList<Object> notice_one_page(String nidx){
 		ArrayList<Object> arr= new ArrayList<Object>();
